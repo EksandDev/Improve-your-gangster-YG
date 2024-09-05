@@ -8,7 +8,7 @@ public abstract class BattlerModel : IDamageable
     public Transform CurrentTransform { get; }
 
     public event Action<BattlerModel> BattleStarted;
-    public event Action BattleStoped;
+    public event Action BattleStopped;
     public event Action DamageReceived;
     public event Action Died;
 
@@ -39,7 +39,7 @@ public abstract class BattlerModel : IDamageable
     {
         Level.StateMachine.SetState<IdleLevelState>();
         Attacker.AttackStop();
-        BattleStoped?.Invoke();
+        BattleStopped?.Invoke();
     }
 
     public virtual void ReceiveDamage(int value)
@@ -59,4 +59,6 @@ public abstract class BattlerModel : IDamageable
         StopBattle();
         Died?.Invoke();
     }
+
+    protected void InvokeBattleStarted(BattlerModel target) => BattleStarted?.Invoke(target);
 }

@@ -4,8 +4,9 @@ using Zenject;
 public class LevelEntryPoint : MonoBehaviour
 {
     [SerializeField] private SceneContext _sceneContext;
-    [SerializeField] private EnemyTrigger _enemyTrigger;
-    [SerializeField] private EnemyView _enemyView;
+    [SerializeField] private EnemyTrigger[] _enemyTriggers;
+    [SerializeField] private EnemyView[] _enemies;
+    [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private EnemyData _data;
     [SerializeField] private int _damage;
     [SerializeField] private int _maxHealth;
@@ -27,10 +28,18 @@ public class LevelEntryPoint : MonoBehaviour
     private void Start()
     {
         _sceneContext.Run();
+
         Level level = new(_cameraController, _levelMover, _playerView);
-        _playerView.Initialize(level, _damage, _maxHealth);
-        _enemyTrigger.Initialize(level);
+        EnemyCreator enemyCreator = new(_enemies, level, _data);
+        LevelPartCreator levelPartCreator = new(null, level);
+
+        foreach (var spawnPoint in _spawnPoints)
+            enemyCreator.Create(spawnPoint.position, _levelMover.transform);
+
+        _playerView.Initialize(_enemyTriggers, level, _damage, _maxHealth);
         _levelMover.Initialize();
-        _enemyView.Initialize(true, level, _data.Damage, _data.MaxHealth);
+
+        foreach (var enemyTrigger in _enemyTriggers)
+            enemyTrigger.Initialize(level);
     }
 }

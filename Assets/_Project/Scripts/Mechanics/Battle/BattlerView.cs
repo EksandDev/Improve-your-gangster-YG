@@ -30,18 +30,21 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
         ModelInitialize(level, damage, maxHealth);
 
         Model.BattleStarted += OnStartBattle;
-        Model.BattleStoped += OnStopBattle;
+        Model.BattleStopped += OnStopBattle;
         Model.DamageReceived += OnReceiveDamage;
         Model.Died += OnDie;
     }
 
-    public virtual void Initialize(bool additionalBoolParameter, Level level, int damage, int maxHealth) 
+    public virtual void Initialize(EnemyTrigger[] enemyTriggers, Level level, int damage, int maxHealth) 
         => Initialize(level, damage, maxHealth);
 
     public abstract void ModelInitialize(Level level, int damage, int maxHealth);
 
-    public virtual void OnStartBattle(BattlerModel target) 
-        => Rotator.StartCoroutine(Rotator.Follow(target.CurrentTransform));
+    public virtual void OnStartBattle(BattlerModel target)
+    {
+        Rotator.IsActive = true;
+        Rotator.StartCoroutine(Rotator.Follow(target.CurrentTransform));
+    } 
 
     public virtual void OnStopBattle()
     {
