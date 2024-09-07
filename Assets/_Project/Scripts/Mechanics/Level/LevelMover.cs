@@ -5,7 +5,7 @@ public class LevelMover : MonoBehaviour
     [SerializeField] private float _idleSpeedModificator;
     [SerializeField] private float _battleSpeedModificator;
 
-    private MovingLevelPart[] _movingLevelParts;
+    private MovingObject[] _movingLevelParts;
     private float _speedModificator;
 
     public void SetIdleSpeedModificator() => _speedModificator = _idleSpeedModificator;
@@ -13,7 +13,7 @@ public class LevelMover : MonoBehaviour
 
     public void Initialize()
     {
-        _movingLevelParts = GetComponentsInChildren<MovingLevelPart>();
+        _movingLevelParts = GetComponentsInChildren<MovingObject>();
         SetIdleSpeedModificator();
     }
 

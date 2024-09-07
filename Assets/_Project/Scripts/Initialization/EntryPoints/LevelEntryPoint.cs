@@ -30,8 +30,8 @@ public class LevelEntryPoint : MonoBehaviour
         _sceneContext.Run();
 
         Level level = new(_cameraController, _levelMover, _playerView);
-        EnemyCreator enemyCreator = new(_enemies, level, _data);
-        LevelPartCreator levelPartCreator = new(null, level);
+        EnemyCreator enemyCreator = new(_enemies, level);
+        LevelPartCreator levelPartCreator = new(null, level, enemyCreator);
 
         foreach (var spawnPoint in _spawnPoints)
             enemyCreator.Create(spawnPoint.position, _levelMover.transform);

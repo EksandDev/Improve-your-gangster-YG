@@ -4,6 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
 public class EnemyView : BattlerView<EnemyModel>, IProduct
 {
+    [SerializeField] private EnemyData _data;
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private ParticleSystem _bloodSplatEffect;
 
@@ -20,16 +21,20 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     }
     #endregion
 
-    public override void Initialize(Level level, int damage, int maxHealth)
+    public override void Initialize(Level level)
     {
-        base.Initialize(level, damage, maxHealth);
+        base.Initialize(level);
+
+        Model = new(level, Attacker, transform, _data.Damage, _data.MaxHealth);
+
+        Model.BattleStarted += OnStartBattle;
+        Model.BattleStopped += OnStopBattle;
+        Model.DamageReceived += OnReceiveDamage;
+        Model.Died += OnDie;
 
         _healthSlider.maxValue = Model.MaxHealth;
         _healthSlider.value = Model.CurrentHealth;
     }
-
-    public override void ModelInitialize(Level level, int damage, int maxHealth)
-        => Model = new(level, Attacker, transform, damage, maxHealth);
 
     public override void OnReceiveDamage()
     {

@@ -9,9 +9,10 @@ public class PlayerCharacterModel : BattlerModel
     public bool CurrentTargetOnLeftSide => _currentTargetOnLeftSide;
 
     public PlayerCharacterModel(Level level, Attacker attacker, Transform currentTransform, int damage, 
-        int maxHealth) : base(level, attacker, currentTransform, damage, maxHealth) { }
-
-    public void AdditionalInitialize(EnemyTrigger[] enemyTriggers) => _enemyTriggers = enemyTriggers;
+        int maxHealth, EnemyTrigger[] enemyTriggers) : base(level, attacker, currentTransform, damage, maxHealth) 
+    {
+        _enemyTriggers = enemyTriggers;
+    }
 
     public override void StartBattle(BattlerModel target)
     {

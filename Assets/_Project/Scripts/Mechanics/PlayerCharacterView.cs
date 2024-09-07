@@ -47,14 +47,17 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
 
     public override void Initialize(EnemyTrigger[] enemyTriggers, Level level, int damage, int maxHealth)
     {
-        base.Initialize(level, damage, maxHealth);
+        base.Initialize(level);
 
-        Model.AdditionalInitialize(enemyTriggers);
+        Model = new(level, Attacker, transform, damage, maxHealth, enemyTriggers);
+
+        Model.BattleStarted += OnStartBattle;
+        Model.BattleStopped += OnStopBattle;
+        Model.DamageReceived += OnReceiveDamage;
+        Model.Died += OnDie;
+
         IsRunning = true;
     }
-
-    public override void ModelInitialize(Level level, int damage, int maxHealth) 
-        => Model = new(level, Attacker, transform, damage, maxHealth);
 
     public override void OnStartBattle(BattlerModel target)
     {
