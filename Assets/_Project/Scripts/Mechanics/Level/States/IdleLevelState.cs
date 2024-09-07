@@ -10,7 +10,7 @@
     public override void Enter()
     {
         _level.CameraController.GoToIdleCameraPoint();
-        _level.LevelMover.SetIdleSpeedModificator();
+        _level.Mover.SetIdleSpeedModificator();
 
         if (_level.CurrentBattle == null)
             return;

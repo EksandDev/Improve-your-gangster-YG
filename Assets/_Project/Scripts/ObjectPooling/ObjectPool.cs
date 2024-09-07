@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class ObjectPool<T> where T : MonoBehaviour
 {
-    public Transform Container { get; private set; }
-
     private List<T> _pool;
     private List<T> _prefabs;
+
+    public Transform Container { get; private set; }
+    public IReadOnlyList<T> Pool => _pool;
 
     public ObjectPool(T prefab, int prefabsCount, Transform container = null)
     {

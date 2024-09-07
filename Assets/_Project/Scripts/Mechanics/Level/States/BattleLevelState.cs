@@ -10,6 +10,6 @@
     public override void Enter()
     {
         _level.CameraController.GoToBattleCameraPoint();
-        _level.LevelMover.SetBattleSpeedModificator();
+        _level.Mover.SetBattleSpeedModificator();
     }
 }

@@ -54,6 +54,7 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;
         Model.DamageReceived += OnReceiveDamage;
+        Model.HealthRecovered += OnHealthRecovered;
         Model.Died += OnDie;
 
         IsRunning = true;

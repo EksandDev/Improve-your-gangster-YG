@@ -30,6 +30,7 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;
         Model.DamageReceived += OnReceiveDamage;
+        Model.HealthRecovered += OnHealthRecovered;
         Model.Died += OnDie;
 
         _healthSlider.maxValue = Model.MaxHealth;
@@ -42,5 +43,12 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
 
         _healthSlider.value = Model.CurrentHealth;
         _bloodSplatEffect.Play();
+    }
+
+    public override void OnHealthRecovered()
+    {
+        base.OnHealthRecovered();
+
+        _healthSlider.value = Model.CurrentHealth;
     }
 }

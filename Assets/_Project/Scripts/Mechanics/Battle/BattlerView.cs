@@ -11,6 +11,16 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
 
     #region Animations
     private const string IS_SHOOTING = "IsShooting";
+    private const string IS_DYING = "IsDying";
+
+    public bool IsDying
+    {
+        get => Animator.GetBool(IS_DYING);
+        set
+        {
+            Animator.SetBool(IS_DYING, value);
+        }
+    }
 
     public bool IsShooting
     {
@@ -50,8 +60,7 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
 
     public virtual void OnReceiveDamage() { }
 
-    public virtual void OnDie()
-    {
-        gameObject.SetActive(false);
-    }
+    public virtual void OnHealthRecovered() => IsDying = false;
+
+    public virtual void OnDie() => IsDying = true;
 }

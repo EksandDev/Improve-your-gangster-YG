@@ -5,13 +5,13 @@ public class Level
     public StateMachine StateMachine => _stateMachine;
     public Battle CurrentBattle { get; set; }
     public CameraController CameraController { get; private set; }
-    public LevelMover LevelMover { get; private set; }
+    public LevelMover Mover { get; private set; }
     public PlayerCharacterView PlayerView { get; private set; }
 
-    public Level(CameraController cameraController, LevelMover levelMover, PlayerCharacterView playerView)
+    public Level(CameraController cameraController, LevelMover mover, PlayerCharacterView playerView)
     {
         CameraController = cameraController;
-        LevelMover = levelMover;
+        Mover = mover;
         PlayerView = playerView;
 
         _stateMachine = new();
