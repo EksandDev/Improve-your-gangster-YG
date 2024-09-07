@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
-public class EnemyView : BattlerView<EnemyModel>
+public class EnemyView : BattlerView<EnemyModel>, IProduct
 {
+    [SerializeField] private EnemyData _data;
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private ParticleSystem _bloodSplatEffect;
-
-    private bool _isLeftSide;
 
     #region Animations
     private const string IS_RUNNING = "IsRunning";
@@ -22,17 +21,21 @@ public class EnemyView : BattlerView<EnemyModel>
     }
     #endregion
 
-    public override void Initialize(bool isLeftSide, Level level, int damage, int maxHealth)
+    public override void Initialize(Level level)
     {
-        base.Initialize(level, damage, maxHealth);
+        base.Initialize(level);
 
-        _isLeftSide = isLeftSide;
+        Model = new(level, Attacker, transform, _data.Damage, _data.MaxHealth);
+
+        Model.BattleStarted += OnStartBattle;
+        Model.BattleStopped += OnStopBattle;
+        Model.DamageReceived += OnReceiveDamage;
+        Model.HealthRecovered += OnHealthRecovered;
+        Model.Died += OnDie;
+
         _healthSlider.maxValue = Model.MaxHealth;
         _healthSlider.value = Model.CurrentHealth;
     }
-
-    public override void ModelInitialize(Level level, int damage, int maxHealth)
-        => Model = new(level, Attacker, transform, damage, maxHealth, _isLeftSide);
 
     public override void OnReceiveDamage()
     {
@@ -40,5 +43,12 @@ public class EnemyView : BattlerView<EnemyModel>
 
         _healthSlider.value = Model.CurrentHealth;
         _bloodSplatEffect.Play();
+    }
+
+    public override void OnHealthRecovered()
+    {
+        base.OnHealthRecovered();
+
+        _healthSlider.value = Model.CurrentHealth;
     }
 }

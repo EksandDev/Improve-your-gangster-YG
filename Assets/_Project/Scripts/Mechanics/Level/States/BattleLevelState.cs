@@ -10,16 +10,6 @@
     public override void Enter()
     {
         _level.CameraController.GoToBattleCameraPoint();
-        _level.LevelMover.SetBattleSpeedModificator();
-
-        _level.PlayerView.IsShooting = true;
-
-        if (_level.CurrentBattle.Enemy.IsLeftSide)
-        {
-            _level.PlayerView.IsStrafingRight = true;
-            return;
-        }
-
-        _level.PlayerView.IsStrafingLeft = true;
+        _level.Mover.SetBattleSpeedModificator();
     }
 }

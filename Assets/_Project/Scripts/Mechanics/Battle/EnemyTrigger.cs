@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class EnemyTrigger : MonoBehaviour
 {
+    [SerializeField] private bool _isLeftSide;
+
     private Level _level;
+
+    public bool IsTriggered { get; private set; }
+    public bool IsLeftSide => _isLeftSide;
 
     public void Initialize(Level level) => _level = level;
 
@@ -10,9 +15,12 @@ public class EnemyTrigger : MonoBehaviour
     {
         if (other.TryGetComponent(out EnemyView enemy))
         {
+            IsTriggered = true;
+
             if (_level.CurrentBattle == null)
                 _level.CurrentBattle = new(_level.PlayerView.Model, enemy.Model);
 
+            _level.CurrentBattle.Stopped += OnStopBattle;
             _level.StateMachine.SetState<BattleLevelState>();
         }
     }
@@ -21,5 +29,11 @@ public class EnemyTrigger : MonoBehaviour
     {
         if (other.TryGetComponent(out EnemyView enemy))
             _level.StateMachine.SetState<IdleLevelState>();
+    }
+
+    private void OnStopBattle()
+    {
+        IsTriggered = false;
+        _level.CurrentBattle.Stopped -= OnStopBattle;
     }
 }

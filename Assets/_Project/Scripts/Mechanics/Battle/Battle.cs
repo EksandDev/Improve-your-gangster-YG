@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class Battle
 {
     private List<BattlerModel> _battlers;
 
-    public EnemyModel Enemy { get; private set; }
+    public event Action Stopped;
 
     public Battle(PlayerCharacterModel playerBattler, EnemyModel enemyBattler)
     {
-        Enemy = enemyBattler;
         _battlers = new(2)
         {
             playerBattler,
@@ -23,5 +23,7 @@ public class Battle
     {
         foreach (var battler in _battlers)
             battler.StopBattle();
+
+        Stopped?.Invoke();
     }
 }

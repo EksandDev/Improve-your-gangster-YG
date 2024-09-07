@@ -45,22 +45,38 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
     }
     #endregion
 
-    public override void Initialize(Level level, int damage, int maxHealth)
+    public override void Initialize(EnemyTrigger[] enemyTriggers, Level level, int damage, int maxHealth)
     {
-        base.Initialize(level, damage, maxHealth);
+        base.Initialize(level);
+
+        Model = new(level, Attacker, transform, damage, maxHealth, enemyTriggers);
+
+        Model.BattleStarted += OnStartBattle;
+        Model.BattleStopped += OnStopBattle;
+        Model.DamageReceived += OnReceiveDamage;
+        Model.HealthRecovered += OnHealthRecovered;
+        Model.Died += OnDie;
 
         IsRunning = true;
     }
 
-    public override void ModelInitialize(Level level, int damage, int maxHealth) 
-        => Model = new(level, Attacker, transform, damage, maxHealth);
-
     public override void OnStartBattle(BattlerModel target)
     {
+        Rotator.IsActive = true;
         Rotator.StartCoroutine(Rotator.Follow(target.CurrentTransform, () =>
         {
             transform.DORotateQuaternion(_runDirectionPoint.rotation, 0.5f).SetLink(gameObject);
         }));
+
+        IsShooting = true;
+
+        if (Model.CurrentTargetOnLeftSide)
+        {
+            IsStrafingRight = true;
+            return;
+        }
+
+        IsStrafingLeft = true;
     }
 
     public override void OnStopBattle()

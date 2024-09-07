@@ -8,8 +8,9 @@ public abstract class BattlerModel : IDamageable
     public Transform CurrentTransform { get; }
 
     public event Action<BattlerModel> BattleStarted;
-    public event Action BattleStoped;
+    public event Action BattleStopped;
     public event Action DamageReceived;
+    public event Action HealthRecovered;
     public event Action Died;
 
     private int _maxHealth;
@@ -39,7 +40,7 @@ public abstract class BattlerModel : IDamageable
     {
         Level.StateMachine.SetState<IdleLevelState>();
         Attacker.AttackStop();
-        BattleStoped?.Invoke();
+        BattleStopped?.Invoke();
     }
 
     public virtual void ReceiveDamage(int value)
@@ -59,4 +60,12 @@ public abstract class BattlerModel : IDamageable
         StopBattle();
         Died?.Invoke();
     }
+
+    public virtual void RecoverHealth()
+    {
+        _currentHealth = MaxHealth;
+        HealthRecovered?.Invoke();
+    }
+
+    protected void InvokeBattleStarted(BattlerModel target) => BattleStarted?.Invoke(target);
 }

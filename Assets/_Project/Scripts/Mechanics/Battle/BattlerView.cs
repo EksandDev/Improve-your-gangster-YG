@@ -4,12 +4,23 @@
 public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
 {
     public T Model { get; protected set; }
+    public bool IsInitialized { get; private set; }
     protected Animator Animator { get; private set; }
     protected Attacker Attacker { get; private set; }
     protected Rotator Rotator { get; private set; }
 
     #region Animations
     private const string IS_SHOOTING = "IsShooting";
+    private const string IS_DYING = "IsDying";
+
+    public bool IsDying
+    {
+        get => Animator.GetBool(IS_DYING);
+        set
+        {
+            Animator.SetBool(IS_DYING, value);
+        }
+    }
 
     public bool IsShooting
     {
@@ -21,27 +32,25 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
     }
     #endregion
 
-    public virtual void Initialize(Level level, int damage, int maxHealth)
+    public virtual void Initialize(Level level)
     {
+        IsInitialized = true;
+
         Animator = GetComponent<Animator>();
         Attacker = GetComponent<Attacker>();
         Rotator = GetComponent<Rotator>();
-
-        ModelInitialize(level, damage, maxHealth);
-
-        Model.BattleStarted += OnStartBattle;
-        Model.BattleStoped += OnStopBattle;
-        Model.DamageReceived += OnReceiveDamage;
-        Model.Died += OnDie;
     }
 
-    public virtual void Initialize(bool additionalBoolParameter, Level level, int damage, int maxHealth) 
+    public virtual void Initialize(Level level, int damage, int maxHealth) => Initialize(level);
+
+    public virtual void Initialize(EnemyTrigger[] enemyTriggers, Level level, int damage, int maxHealth) 
         => Initialize(level, damage, maxHealth);
 
-    public abstract void ModelInitialize(Level level, int damage, int maxHealth);
-
-    public virtual void OnStartBattle(BattlerModel target) 
-        => Rotator.StartCoroutine(Rotator.Follow(target.CurrentTransform));
+    public virtual void OnStartBattle(BattlerModel target)
+    {
+        Rotator.IsActive = true;
+        Rotator.StartCoroutine(Rotator.Follow(target.CurrentTransform));
+    } 
 
     public virtual void OnStopBattle()
     {
@@ -51,8 +60,7 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
 
     public virtual void OnReceiveDamage() { }
 
-    public virtual void OnDie()
-    {
-        gameObject.SetActive(false);
-    }
+    public virtual void OnHealthRecovered() => IsDying = false;
+
+    public virtual void OnDie() => IsDying = true;
 }
