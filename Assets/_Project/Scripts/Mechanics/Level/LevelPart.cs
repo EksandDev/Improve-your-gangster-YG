@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MovingObject))]
+[RequireComponent(typeof(MovableObject))]
 public class LevelPart : MonoBehaviour, IProduct
 {
     [SerializeField] private Transform[] _enemySpawnPoints;

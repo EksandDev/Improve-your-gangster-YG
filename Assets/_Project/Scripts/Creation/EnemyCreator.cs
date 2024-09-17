@@ -20,7 +20,7 @@ public class EnemyCreator : Creator<EnemyView>
         if (!enemy.IsInitialized)
         {
             enemy.Initialize(_level);
-            _level.Mover.AddMovingObject(enemy.GetComponent<MovingObject>());
+            _level.Mover.AddMovingObject(enemy.GetComponent<MovableObject>());
         }
 
         enemy.Model.RecoverHealth();
