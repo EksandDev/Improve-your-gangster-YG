@@ -4,7 +4,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
 public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
 {
-    [SerializeField] private Transform _runDirectionPoint;
+    [SerializeField] private Transform _battleCameraPoint;
+    [SerializeField] private Transform _battleGunPoint;
+    [SerializeField] private Transform _idleGunPoint;
+    [SerializeField] private Transform _gun;
+    [SerializeField] private ParticleSystem _moneyEffect;
+
+    public Transform RunDirectionPoint { get; set; }
+    public Transform BattleCameraPoint => _battleCameraPoint;
+    public ParticleSystem MoneyEffect => _moneyEffect;
 
     #region Animations
     private const string IS_RUNNING = "IsRunning";
@@ -45,11 +53,12 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
     }
     #endregion
 
-    public override void Initialize(EnemyTrigger[] enemyTriggers, Level level, int damage, int maxHealth)
+    public override void Initialize(EnemyTrigger[] enemyTriggers, Level level, float damage, float maxHealth, 
+        float firingRate)
     {
         base.Initialize(level);
 
-        Model = new(level, Attacker, transform, damage, maxHealth, enemyTriggers);
+        Model = new(level, Attacker, transform, damage, maxHealth, firingRate, enemyTriggers);
 
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;
@@ -62,10 +71,13 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
 
     public override void OnStartBattle(BattlerModel target)
     {
+        _gun.parent = _battleGunPoint;
+        _gun.position = _battleGunPoint.position;
+        _gun.rotation = _battleGunPoint.rotation;
         Rotator.IsActive = true;
         Rotator.StartCoroutine(Rotator.Follow(target.CurrentTransform, () =>
         {
-            transform.DORotateQuaternion(_runDirectionPoint.rotation, 0.5f).SetLink(gameObject);
+            transform.DORotateQuaternion(RunDirectionPoint.rotation, 0.5f).SetLink(gameObject);
         }));
 
         IsShooting = true;
@@ -81,6 +93,9 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
 
     public override void OnStopBattle()
     {
+        _gun.parent = _idleGunPoint;
+        _gun.position = _idleGunPoint.position;
+        _gun.rotation = _idleGunPoint.rotation;
         Rotator.IsActive = false;
         IsShooting = false;
         IsStrafingRight = false;

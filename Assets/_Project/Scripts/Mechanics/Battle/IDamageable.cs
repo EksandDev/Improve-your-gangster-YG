@@ -2,8 +2,8 @@
 
 public interface IDamageable
 {
-    public int MaxHealth { get; }
-    public int CurrentHealth { get; }
+    public float MaxHealth { get; }
+    public float CurrentHealth { get; }
 
-    public void ReceiveDamage(int value);
+    public void ReceiveDamage(float value);
 }

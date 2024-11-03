@@ -5,9 +5,11 @@ public class Shop
 {
     private List<Character> _sellableCharacters;
     private PlayerStats _playerStats;
+    private UpgradeUIController _upgradeUIController;
     private int _currentCharacterIndex;
 
     public IReadOnlyList<Character> SellableCharacters => _sellableCharacters;
+    public Character CurrentCharacter => _sellableCharacters[CurrentCharacterIndex];
     public int CurrentCharacterIndex
     {
         get => _currentCharacterIndex;
@@ -16,13 +18,15 @@ public class Shop
             if (value == _currentCharacterIndex || value < 0 || value > _sellableCharacters.Count - 1)
                 return;
 
-            _sellableCharacters[_currentCharacterIndex].InstantiatedPrefab.SetActive(false);
+            CurrentCharacter.InstantiatedPrefab.gameObject.SetActive(false);
             _currentCharacterIndex = value;
-            _sellableCharacters[_currentCharacterIndex].InstantiatedPrefab.SetActive(true);
+            CurrentCharacter.InstantiatedPrefab.gameObject.SetActive(true);
+            _upgradeUIController.CurrentCharacter = CurrentCharacter;
         }
     }
 
-    public Shop(PlayerStats playerStats, List<Character> sellableCharacters)
+    public Shop(PlayerStats playerStats, List<Character> sellableCharacters, 
+        UpgradeUIController upgradeUIController)
     {
         if (sellableCharacters == null || sellableCharacters.Count == 0)
         {
@@ -32,6 +36,8 @@ public class Shop
 
         _sellableCharacters = sellableCharacters;
         _playerStats = playerStats;
+        _upgradeUIController = upgradeUIController;
+        _upgradeUIController.CurrentCharacter = CurrentCharacter;
     }
 
     public bool TryBuyItem(ISellable item)

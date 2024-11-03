@@ -33,7 +33,6 @@ public class ChangeCharacterButton : MonoBehaviour
                 return;
             }
 
-            Debug.Log(_shop.SellableCharacters.Count);
             _shop.CurrentCharacterIndex = _shop.SellableCharacters.Count - 1;
         }
     }

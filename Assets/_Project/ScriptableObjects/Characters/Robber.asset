@@ -15,3 +15,29 @@ MonoBehaviour:
   _prefab: {fileID: 1849948860622734697, guid: bc2b9e3fd88eec343bc905b78df149fe, type: 3}
   _name: {fileID: 11400000, guid: a2fd9573ba4929047adaacf51491eb2f, type: 2}
   _cost: 0
+  _UpgradeCostUp: 80
+  _isPurchasedOnStart: 0
+  _healthUpgradeMaxLevel: 5
+  _damageUpgradeMaxLevel: 5
+  _firingRateUpgradeMaxLevel: 5
+  _healthUpgradeLevelValues:
+  - 35
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _damageUpgradeLevelValues:
+  - 10
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _firingRateUpgradeLevelValues:
+  - 1.8
+  - 1.6
+  - 1.4
+  - 1.2
+  - 1
+  - 0.8

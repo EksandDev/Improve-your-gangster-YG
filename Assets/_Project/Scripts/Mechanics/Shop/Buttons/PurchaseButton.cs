@@ -3,18 +3,23 @@
 public class PurchaseButton : MonoBehaviour
 {
     private Shop _shop;
-    private ISellable _item;
 
-    public ISellable Item => _item;
+    public ISellable Item { get; set; }
 
-    public void Initialize(ISellable purchaseItem)
+    public void Initialize(Shop shop)
     {
-        _item = purchaseItem;
+        _shop = shop;
+    }
+
+    public void Initialize(Shop shop, ISellable sellableItem)
+    {
+        Initialize(shop);
+        Item = sellableItem;
     }
 
     public void OnClick()
     {
-        if (_shop.TryBuyItem(_item))
+        if (_shop.TryBuyItem(Item))
         {
 
         }

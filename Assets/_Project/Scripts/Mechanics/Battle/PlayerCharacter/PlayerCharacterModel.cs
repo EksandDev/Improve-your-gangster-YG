@@ -8,8 +8,9 @@ public class PlayerCharacterModel : BattlerModel
 
     public bool CurrentTargetOnLeftSide => _currentTargetOnLeftSide;
 
-    public PlayerCharacterModel(Level level, Attacker attacker, Transform currentTransform, int damage, 
-        int maxHealth, EnemyTrigger[] enemyTriggers) : base(level, attacker, currentTransform, damage, maxHealth) 
+    public PlayerCharacterModel(Level level, Attacker attacker, Transform currentTransform, float damage, 
+        float maxHealth, float firingRate, EnemyTrigger[] enemyTriggers) : 
+        base(level, attacker, currentTransform, damage, maxHealth, firingRate) 
     {
         _enemyTriggers = enemyTriggers;
     }

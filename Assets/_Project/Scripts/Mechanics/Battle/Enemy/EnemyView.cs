@@ -25,7 +25,7 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     {
         base.Initialize(level);
 
-        Model = new(level, Attacker, transform, _data.Damage, _data.MaxHealth);
+        Model = new(level, Attacker, transform, _data.Damage, _data.MaxHealth, _data.FiringRate);
 
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;

@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform _runCameraPoint;
-    [SerializeField] private Transform _battleCameraPoint;
+    private Transform _runCameraPoint;
+    private Transform _battleCameraPoint;
 
-    private void Start() => GoToIdleCameraPoint();
+    public void Initialize(Transform runCameraPoint, Transform battleCameraPoint)
+    {
+        _runCameraPoint = runCameraPoint;
+        _battleCameraPoint = battleCameraPoint;
+        GoToIdleCameraPoint();
+    }
+
     public void GoToIdleCameraPoint() => StartCoroutine(GoToCameraPoint(_runCameraPoint));
     public void GoToBattleCameraPoint() => StartCoroutine(GoToCameraPoint(_battleCameraPoint));
 

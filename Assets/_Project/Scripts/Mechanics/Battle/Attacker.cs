@@ -5,13 +5,16 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] private Transform _firePoint;
     [SerializeField] private ParticleSystem _gunshotEffect;
+    [SerializeField] private float _timeToPerformFirstAttack = 0.5f;
 
     private bool _isAttacking;
-    private int _damage;
+    private float _damage;
+    private float _firingRate;
 
-    public void Initialize(int damage)
+    public void Initialize(float damage, float firingRate)
     {
         _damage = damage;
+        _firingRate = firingRate;
     }
 
     public void Attack(IDamageable target)
@@ -20,21 +23,21 @@ public class Attacker : MonoBehaviour
         StartCoroutine(AttackCoroutine(target));
     }
 
-    public void AttackStop()
+    public void StopAttack()
     {
         _isAttacking = false;
     }
 
     private IEnumerator AttackCoroutine(IDamageable target)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_timeToPerformFirstAttack);
 
         while (_isAttacking)
         {
             _gunshotEffect.Play();
             target.ReceiveDamage(_damage);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(_firingRate);
         }
     }
 }

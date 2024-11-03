@@ -2,8 +2,8 @@
 
 public class EnemyModel : BattlerModel
 {
-    public EnemyModel(Level level, Attacker attacker, Transform currentTransform, int damage, 
-        int maxHealth) : base(level, attacker, currentTransform, damage, maxHealth)
+    public EnemyModel(Level level, Attacker attacker, Transform currentTransform, float damage, 
+        float maxHealth, float firingRate) : base(level, attacker, currentTransform, damage, maxHealth, firingRate)
     {
     }
 
