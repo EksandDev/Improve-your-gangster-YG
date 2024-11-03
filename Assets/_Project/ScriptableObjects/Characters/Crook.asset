@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5427e2afbd057546a2f129eb35ecb00, type: 3}
+  m_Name: Crook
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 6381758223222434351, guid: 16653db4633a93347a96a0abd86c4860, type: 3}
+  _name: {fileID: 11400000, guid: add8a9da62289a94196e411cbaaf748d, type: 2}
+  _cost: 0
+  _UpgradeCostUp: 50
+  _isPurchasedOnStart: 1
+  _healthUpgradeMaxLevel: 5
+  _damageUpgradeMaxLevel: 5
+  _firingRateUpgradeMaxLevel: 5
+  _healthUpgradeLevelValues:
+  - 20
+  - 24
+  - 30
+  - 36
+  - 40
+  - 45
+  _damageUpgradeLevelValues:
+  - 3
+  - 6
+  - 9
+  - 12
+  - 5
+  - 18
+  _firingRateUpgradeLevelValues:
+  - 2
+  - 1.8
+  - 1.6
+  - 1.4
+  - 1.2
+  - 1

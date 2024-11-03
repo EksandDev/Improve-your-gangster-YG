@@ -13,13 +13,14 @@ public abstract class BattlerModel : IDamageable
     public event Action HealthRecovered;
     public event Action Died;
 
-    private int _maxHealth;
-    private int _currentHealth;
+    private float _maxHealth;
+    private float _currentHealth;
 
-    public int MaxHealth => _maxHealth;
-    public int CurrentHealth => _currentHealth;
+    public float MaxHealth => _maxHealth;
+    public float CurrentHealth => _currentHealth;
 
-    public BattlerModel(Level level, Attacker attacker, Transform currentTransform, int damage, int maxHealth)
+    public BattlerModel(Level level, Attacker attacker, Transform currentTransform, float damage, 
+        float maxHealth, float firingRate)
     {
         Level = level;
         Attacker = attacker;
@@ -27,7 +28,7 @@ public abstract class BattlerModel : IDamageable
         _maxHealth = maxHealth;
         _currentHealth = maxHealth;
 
-        Attacker.Initialize(damage);
+        Attacker.Initialize(damage, firingRate);
     }
 
     public virtual void StartBattle(BattlerModel target)
@@ -39,11 +40,11 @@ public abstract class BattlerModel : IDamageable
     public virtual void StopBattle()
     {
         Level.StateMachine.SetState<IdleLevelState>();
-        Attacker.AttackStop();
+        Attacker.StopAttack();
         BattleStopped?.Invoke();
     }
 
-    public virtual void ReceiveDamage(int value)
+    public virtual void ReceiveDamage(float value)
     {
         if (CurrentHealth <= 0 || value <= 0)
             return;

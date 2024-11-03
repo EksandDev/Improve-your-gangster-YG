@@ -41,10 +41,11 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
         Rotator = GetComponent<Rotator>();
     }
 
-    public virtual void Initialize(Level level, int damage, int maxHealth) => Initialize(level);
+    public virtual void Initialize(Level level, float damage, float maxHealth, float firingRate) 
+        => Initialize(level);
 
-    public virtual void Initialize(EnemyTrigger[] enemyTriggers, Level level, int damage, int maxHealth) 
-        => Initialize(level, damage, maxHealth);
+    public virtual void Initialize(EnemyTrigger[] enemyTriggers, Level level, float damage, float maxHealth, 
+        float firingRate) => Initialize(level, damage, maxHealth, firingRate);
 
     public virtual void OnStartBattle(BattlerModel target)
     {

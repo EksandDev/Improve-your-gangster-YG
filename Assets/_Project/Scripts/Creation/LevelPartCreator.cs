@@ -23,7 +23,7 @@ public class LevelPartCreator : Creator<LevelPart>
         if (!levelPart.IsInitialized)
         {
             levelPart.Initialize(_enemyCreator, this);
-            _level.Mover.AddMovingObject(levelPart.GetComponent<MovingObject>());
+            _level.Mover.AddMovingObject(levelPart.GetComponent<MovableObject>());
         }
 
         levelPart.SpawnEnemies();

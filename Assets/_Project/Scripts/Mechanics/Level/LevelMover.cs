@@ -6,7 +6,7 @@ public class LevelMover : MonoBehaviour
     [SerializeField] private float _idleSpeedModificator;
     [SerializeField] private float _battleSpeedModificator;
 
-    private List<MovingObject> _movingObjects;
+    private List<MovableObject> _movingObjects;
     private float _speedModificator;
 
     public void Initialize()
@@ -17,7 +17,7 @@ public class LevelMover : MonoBehaviour
 
     public void SetIdleSpeedModificator() => _speedModificator = _idleSpeedModificator;
     public void SetBattleSpeedModificator() => _speedModificator = _battleSpeedModificator;
-    public void AddMovingObject(MovingObject movingObject) => _movingObjects.Add(movingObject);
+    public void AddMovingObject(MovableObject movingObject) => _movingObjects.Add(movingObject);
 
     private void FixedUpdate()
     {

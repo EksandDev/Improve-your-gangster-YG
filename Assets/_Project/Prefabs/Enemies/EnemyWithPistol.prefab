@@ -658,7 +658,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2832,7 +2832,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6369264808516028232}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.55, y: 5.269602, z: -1.7051077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2955,6 +2955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 3041294959650855494}
   _gunshotEffect: {fileID: 4354694842563966981}
+  _timeToPerformFirstAttack: 0.5
 --- !u!114 &1957745307368034210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3148,7 +3149,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5427e2afbd057546a2f129eb35ecb00, type: 3}
+  m_Name: Robber
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 1849948860622734697, guid: bc2b9e3fd88eec343bc905b78df149fe, type: 3}
+  _name: {fileID: 11400000, guid: a2fd9573ba4929047adaacf51491eb2f, type: 2}
+  _cost: 0
+  _UpgradeCostUp: 80
+  _isPurchasedOnStart: 0
+  _healthUpgradeMaxLevel: 5
+  _damageUpgradeMaxLevel: 5
+  _firingRateUpgradeMaxLevel: 5
+  _healthUpgradeLevelValues:
+  - 35
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _damageUpgradeLevelValues:
+  - 10
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _firingRateUpgradeLevelValues:
+  - 1.8
+  - 1.6
+  - 1.4
+  - 1.2
+  - 1
+  - 0.8
