@@ -8,6 +8,8 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private ParticleSystem _bloodSplatEffect;
 
+    public EnemyData Data;
+
     #region Animations
     private const string IS_RUNNING = "IsRunning";
 
@@ -21,11 +23,11 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     }
     #endregion
 
-    public override void Initialize(Level level)
+    public override void Initialize(Level level, float damage, float maxHealth, float firingRate)
     {
         base.Initialize(level);
 
-        Model = new(level, Attacker, transform, _data.Damage, _data.MaxHealth, _data.FiringRate);
+        Model = new(level, Attacker, transform, damage, maxHealth, firingRate);
 
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;

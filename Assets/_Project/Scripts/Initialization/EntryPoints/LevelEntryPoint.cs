@@ -47,7 +47,8 @@ public class LevelEntryPoint : MonoBehaviour
             _playerSpawnPoint.rotation);
         _cameraController.Initialize(_runCameraPoint, _playerView.BattleCameraPoint);
         _level = new(_cameraController, _levelMover, _playerView);
-        EnemyCreator enemyCreator = new(_level, _enemyObjectPool, _environment);
+        DifficultCalculator difficultCalculator = new();
+        EnemyCreator enemyCreator = new(_level, _enemyObjectPool, _environment, difficultCalculator);
         LevelPartCreator levelPartCreator = new(_level, enemyCreator, _levelPartObjectPool, _environment);
         PlayerCharacterInitialize();
         _levelMover.Initialize();
@@ -60,8 +61,8 @@ public class LevelEntryPoint : MonoBehaviour
 
     private void PlayerCharacterInitialize()
     {
-        _playerView.Initialize
-            (_enemyTriggers, _level, _dataForLevel.Damage, _dataForLevel.Health, _dataForLevel.FiringRate);
+        _playerView.Initialize(_enemyTriggers, _level, _dataForLevel.PlayerDamage, 
+            _dataForLevel.PlayerHealth, _dataForLevel.PlayerFiringRate);
         _playerView.RunDirectionPoint = _runDirectionPoint;
     }
 }

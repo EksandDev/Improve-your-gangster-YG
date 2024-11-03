@@ -44,6 +44,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         _sceneContext.Run();
         _playerStats = new();
         _playerStats.Money = 100000;
+        _playerStats.CurrentLevel = 1;
         InitializeCharacters();
         _upgradeUIController = new(_damageUpgradeUI, _healthUpgradeUI, _firingRateUpgradeUI,
             _damageUpgradePurchaseButton, _healthUpgradePurchaseButton, _firingRateUpgradePurchaseButton);
@@ -71,7 +72,7 @@ public class MainMenuEntryPoint : MonoBehaviour
             character.InstantiatedPrefab.MoneyEffect.gameObject.SetActive(false);
             Animator animator;
 
-            if (!character.InstantiatedPrefab.TryGetComponent<Animator>(out animator))
+            if (!character.InstantiatedPrefab.TryGetComponent(out animator))
             {
                 Debug.LogError("Character doesn't has a Animator component");
                 continue;
@@ -83,7 +84,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private void InitializeButtons()
     {
-        _toBattleButton.Initialize(_sceneLoader, _dataForLevel, _shop);
+        _toBattleButton.Initialize(_sceneLoader, _dataForLevel, _shop, _playerStats);
         _damageUpgradePurchaseButton.Initialize(_shop);
         _healthUpgradePurchaseButton.Initialize(_shop);
         _firingRateUpgradePurchaseButton.Initialize(_shop);
