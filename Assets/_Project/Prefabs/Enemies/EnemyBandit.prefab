@@ -627,6 +627,7 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: 8a7a80633a29d7743a4cc9da324dea19, type: 2}
   _healthSlider: {fileID: 8336546682500819478}
   _bloodSplatEffect: {fileID: 7024716462083379564}
+  Data: {fileID: 11400000, guid: 8a7a80633a29d7743a4cc9da324dea19, type: 2}
 --- !u!114 &31873073410960400
 MonoBehaviour:
   m_ObjectHideFlags: 0

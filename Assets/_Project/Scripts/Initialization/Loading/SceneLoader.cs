@@ -11,6 +11,10 @@ public class SceneLoader : MonoBehaviour
     private AsyncOperation _currentAsyncOperation;
     private float _currentProgress;
 
+    public readonly string BootstrapScene = "Bootstrap";
+    public readonly string MenuScene = "Menu";
+    public readonly string LevelScene = "Level";
+
     #region Validate
     private void OnValidate()
     {

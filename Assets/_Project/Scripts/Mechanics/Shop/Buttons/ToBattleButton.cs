@@ -7,8 +7,6 @@ public class ToBattleButton : MonoBehaviour
     private Shop _shop;
     private PlayerStats _playerStats;
 
-    private const string LEVEL_SCENE = "DevScene";
-
     public void Initialize(SceneLoader sceneLoader, DataForLevel dataForLevel, Shop shop, PlayerStats playerStats)
     {
         _sceneLoader = sceneLoader;
@@ -28,6 +26,6 @@ public class ToBattleButton : MonoBehaviour
         _dataForLevel.CurrentLevel = _playerStats.CurrentLevel;
         Debug.Log($"Damage: {_dataForLevel.PlayerDamage}, " +
             $"Health: {_dataForLevel.PlayerHealth}, FiringRate: {_dataForLevel.PlayerFiringRate}");
-        _sceneLoader.Load(LEVEL_SCENE);
+        _sceneLoader.Load(_sceneLoader.LevelScene);
     }
 }

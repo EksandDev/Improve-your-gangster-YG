@@ -10,11 +10,16 @@ public class LevelEntryPoint : MonoBehaviour
     [SerializeField] private Transform _runDirectionPoint;
     [SerializeField] private Transform _runCameraPoint;
 
+    [Header("UI")]
+    [SerializeField] private Transform _failurePopup;
+    [SerializeField] private Transform _finishPopup;
+    [SerializeField] private ToShopButton[] _toShopButtons;
+
     [Header("Enemy things")]
     [SerializeField] private EnemyTrigger[] _enemyTriggers;
-    [SerializeField] private EnemyView[] _enemies;
 
     [Header("Other")]
+    [SerializeField] private FinalLevelPart _finalLevelPart;
     [SerializeField] private SceneContext _sceneContext;
     [SerializeField] private int _damage;
     [SerializeField] private int _maxHealth;
@@ -22,6 +27,7 @@ public class LevelEntryPoint : MonoBehaviour
     private Level _level;
     private LevelMover _levelMover;
     private CameraController _cameraController;
+    private SceneLoader _sceneLoader;
     private PlayerCharacterView _playerView;
     private EnemyObjectPool _enemyObjectPool;
     private LevelPartObjectPool _levelPartObjectPool;
@@ -29,11 +35,12 @@ public class LevelEntryPoint : MonoBehaviour
 
     #region Zenject initialization
     [Inject]
-    private void Construct(LevelMover levelMover, CameraController cameraController,
+    private void Construct(LevelMover levelMover, CameraController cameraController, SceneLoader sceneLoader,
         EnemyObjectPool enemyObjectPool, LevelPartObjectPool levelPartObjectPool, DataForLevel dataForLevel)
     {
         _levelMover = levelMover;
         _cameraController = cameraController;
+        _sceneLoader = sceneLoader;
         _enemyObjectPool = enemyObjectPool;
         _levelPartObjectPool = levelPartObjectPool;
         _dataForLevel = dataForLevel;
@@ -45,12 +52,14 @@ public class LevelEntryPoint : MonoBehaviour
         _sceneContext.Run();
         _playerView = Instantiate(_dataForLevel.PlayerCharacterPrefab, _playerSpawnPoint.position,
             _playerSpawnPoint.rotation);
-        _cameraController.Initialize(_runCameraPoint, _playerView.BattleCameraPoint);
+        _cameraController.Initialize(_runCameraPoint, _playerView.BattleCameraPoint, _levelMover);
         _level = new(_cameraController, _levelMover, _playerView);
-        DifficultCalculator difficultCalculator = new();
-        EnemyCreator enemyCreator = new(_level, _enemyObjectPool, _environment, difficultCalculator);
-        LevelPartCreator levelPartCreator = new(_level, enemyCreator, _levelPartObjectPool, _environment);
+        EnemyCreator enemyCreator = new(_level, _enemyObjectPool, _environment, new());
+        LevelPartCreator levelPartCreator = new(_level, enemyCreator, _levelPartObjectPool, 
+            _finalLevelPart, _cameraController, _finishPopup, _environment);
         PlayerCharacterInitialize();
+        LevelEnd levelEnd = new(_playerView.Model, _sceneLoader);
+        LevelUIInitializer levelUIInitializer = new(_toShopButtons, _sceneLoader);
         _levelMover.Initialize();
 
         foreach (var enemyTrigger in _enemyTriggers)
