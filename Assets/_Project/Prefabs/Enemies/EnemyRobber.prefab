@@ -13131,7 +13131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b60066ad5b2708f47937e10387244dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: d4dfc19e7da09d546a057e1936d08a75, type: 2}
+  _data: {fileID: 11400000, guid: 529b8ef6c2d607b4ea673bade2b4e950, type: 2}
   _healthSlider: {fileID: 595950086487272335}
   _bloodSplatEffect: {fileID: 1737843985413136361}
 --- !u!114 &2914124924283961044

@@ -1,7 +1,7 @@
 public class DataForLevel
 {
     public PlayerCharacterView PlayerCharacterPrefab { get; set; }
-    public float Damage { get; set; }
-    public float Health { get; set; }
-    public float FiringRate { get; set; }
+    public float PlayerDamage { get; set; }
+    public float PlayerHealth { get; set; }
+    public float PlayerFiringRate { get; set; }
 }

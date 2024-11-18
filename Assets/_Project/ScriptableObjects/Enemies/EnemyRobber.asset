@@ -15,3 +15,6 @@ MonoBehaviour:
   _maxHealth: 20
   _damage: 2
   _firingRate: 0.5
+  _costForSpawn: 1
+  _levelToOpen: 3
+  _objectPool: {fileID: 1593757339406915159, guid: 6f251efac768a29499c9f757b6848376, type: 3}

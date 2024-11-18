@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f649b8f60cc8c7c4baf05600451da0de, type: 3}
   m_Name: EnemyCrook
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 5
   _damage: 2
   _firingRate: 2
+  _costForSpawn: 0
+  _levelToOpen: 0
+  _objectPool: {fileID: 7586498203726799723, guid: c5b12b2c1d7bde24f91447ab4a90c321, type: 3}

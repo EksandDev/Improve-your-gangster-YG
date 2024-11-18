@@ -18,6 +18,6 @@ public class BootstrapEntryPoint : MonoBehaviour
     private void Start()
     {
         _sceneContext.Run();
-        _sceneLoader.Load("Menu");
+        _sceneLoader.Load(_sceneLoader.MenuScene);
     }
 }

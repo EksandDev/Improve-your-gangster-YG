@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerCharacterModel : BattlerModel
@@ -30,12 +31,5 @@ public class PlayerCharacterModel : BattlerModel
         }
 
         Debug.LogError("Start battle with not triggered enemy trigger!");
-    }
-
-    public override void Die()
-    {
-        base.Die();
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
