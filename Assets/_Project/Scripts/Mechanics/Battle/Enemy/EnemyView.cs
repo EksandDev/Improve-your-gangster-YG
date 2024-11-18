@@ -8,7 +8,7 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private ParticleSystem _bloodSplatEffect;
 
-    public EnemyData Data;
+    public EnemyData Data => _data;
 
     #region Animations
     private const string IS_RUNNING = "IsRunning";

@@ -4,5 +4,4 @@ public class DataForLevel
     public float PlayerDamage { get; set; }
     public float PlayerHealth { get; set; }
     public float PlayerFiringRate { get; set; }
-    public int CurrentLevel { get; set; }
 }

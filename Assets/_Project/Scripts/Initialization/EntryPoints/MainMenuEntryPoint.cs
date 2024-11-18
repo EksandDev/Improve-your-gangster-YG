@@ -32,19 +32,25 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     #region Zenject initialization
     [Inject]
-    private void Construct(SceneLoader sceneLoader, DataForLevel dataForLevel)
+    private void Construct(SceneLoader sceneLoader, DataForLevel dataForLevel, PlayerStats playerStats)
     {
         _sceneLoader = sceneLoader;
         _dataForLevel = dataForLevel;
+        _playerStats = playerStats;
     }
     #endregion
 
     private void Start()
     {
         _sceneContext.Run();
-        _playerStats = new();
-        _playerStats.Money = 100000;
-        _playerStats.CurrentLevel = 1;
+
+        if (!_playerStats.IsInitialized)
+        {
+            _playerStats.Money = 100000;
+            _playerStats.CurrentLevel = 3;
+            _playerStats.IsInitialized = true;
+        }
+
         InitializeCharacters();
         _upgradeUIController = new(_damageUpgradeUI, _healthUpgradeUI, _firingRateUpgradeUI,
             _damageUpgradePurchaseButton, _healthUpgradePurchaseButton, _firingRateUpgradePurchaseButton);

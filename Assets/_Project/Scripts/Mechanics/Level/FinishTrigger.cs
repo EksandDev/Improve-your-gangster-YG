@@ -3,11 +3,13 @@
 public class FinishTrigger : MonoBehaviour
 {
     private CameraController _cameraController;
+    private PlayerStats _playerStats;
     private Transform _finishPopup;
 
-    public void Initialize(CameraController cameraController, Transform finishPopup)
+    public void Initialize(CameraController cameraController, PlayerStats playerStats, Transform finishPopup)
     {
         _cameraController = cameraController;
+        _playerStats = playerStats;
         _finishPopup = finishPopup;
     }
 
@@ -16,7 +18,9 @@ public class FinishTrigger : MonoBehaviour
         if (other.TryGetComponent(out PlayerCharacterView player))
         {
             _cameraController.Deactivate();
+            _playerStats.CurrentLevel++;
             _finishPopup.gameObject.SetActive(true);
+            Debug.Log($"Current level: {_playerStats.CurrentLevel}");
         }
     }
 

@@ -7,6 +7,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] private ParticleSystem _gunshotEffect;
     [SerializeField] private float _timeToPerformFirstAttack = 0.5f;
 
+    private Coroutine _attackCoroutine;
     private bool _isAttacking;
     private float _damage;
     private float _firingRate;
@@ -19,8 +20,11 @@ public class Attacker : MonoBehaviour
 
     public void Attack(IDamageable target)
     {
+        if (_attackCoroutine != null)
+            StopCoroutine(_attackCoroutine);
+
         _isAttacking = true;
-        StartCoroutine(AttackCoroutine(target));
+        _attackCoroutine = StartCoroutine(AttackCoroutine(target));
     }
 
     public void StopAttack()

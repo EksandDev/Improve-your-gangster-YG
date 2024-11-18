@@ -16,6 +16,7 @@ public class LevelEntryPoint : MonoBehaviour
     [SerializeField] private ToShopButton[] _toShopButtons;
 
     [Header("Enemy things")]
+    [SerializeField] private EnemyView[] _enemyPrefabs;
     [SerializeField] private EnemyTrigger[] _enemyTriggers;
 
     [Header("Other")]
@@ -32,11 +33,13 @@ public class LevelEntryPoint : MonoBehaviour
     private EnemyObjectPool _enemyObjectPool;
     private LevelPartObjectPool _levelPartObjectPool;
     private DataForLevel _dataForLevel;
+    private PlayerStats _playerStats;
 
     #region Zenject initialization
     [Inject]
     private void Construct(LevelMover levelMover, CameraController cameraController, SceneLoader sceneLoader,
-        EnemyObjectPool enemyObjectPool, LevelPartObjectPool levelPartObjectPool, DataForLevel dataForLevel)
+        EnemyObjectPool enemyObjectPool, LevelPartObjectPool levelPartObjectPool, DataForLevel dataForLevel,
+        PlayerStats playerStats)
     {
         _levelMover = levelMover;
         _cameraController = cameraController;
@@ -44,6 +47,7 @@ public class LevelEntryPoint : MonoBehaviour
         _enemyObjectPool = enemyObjectPool;
         _levelPartObjectPool = levelPartObjectPool;
         _dataForLevel = dataForLevel;
+        _playerStats = playerStats;
     }
     #endregion
 
@@ -54,9 +58,11 @@ public class LevelEntryPoint : MonoBehaviour
             _playerSpawnPoint.rotation);
         _cameraController.Initialize(_runCameraPoint, _playerView.BattleCameraPoint, _levelMover);
         _level = new(_cameraController, _levelMover, _playerView);
-        EnemyCreator enemyCreator = new(_level, _enemyObjectPool, _environment, new());
+        DifficultCalculator difficultCalculator = new(_enemyPrefabs);
+        difficultCalculator.Calculate(_playerStats.CurrentLevel);
+        EnemyCreator enemyCreator = new(_level, _environment, difficultCalculator);
         LevelPartCreator levelPartCreator = new(_level, enemyCreator, _levelPartObjectPool, 
-            _finalLevelPart, _cameraController, _finishPopup, _environment);
+            _finalLevelPart, _cameraController, _playerStats, difficultCalculator, _finishPopup, _environment);
         PlayerCharacterInitialize();
         LevelEnd levelEnd = new(_playerView.Model, _sceneLoader);
         LevelUIInitializer levelUIInitializer = new(_toShopButtons, _sceneLoader);

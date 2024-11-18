@@ -1,24 +1,40 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCreator : Creator<EnemyView>
+public class EnemyCreator : CreatorByCost<EnemyView>
 {
     private Level _level;
-    private EnemyObjectPool _objectPool;
     private DifficultCalculator _difficultCalculator;
+    private Dictionary<EnemyView, EnemyObjectPool> _enemiesWithObjectPools;
+    private List<int> _availableCosts;
 
-    public EnemyCreator(Level level, EnemyObjectPool objectPool, 
-        Transform productParent, DifficultCalculator difficultCalculator)
+    public IReadOnlyList<int> AvailableCosts => _availableCosts;
+
+    public EnemyCreator(Level level, Transform productParent, DifficultCalculator difficultCalculator)
     {
         _level = level;
-        _objectPool = objectPool;
         _difficultCalculator = difficultCalculator;
+        _availableCosts = new();
+        _enemiesWithObjectPools = new();
 
-        _objectPool.Initialize(productParent);
+        foreach (var availableEnemy in _difficultCalculator.AvailableEnemies)
+        {
+            var objectPool = availableEnemy.Data.ObjectPool;
+            _enemiesWithObjectPools.Add(availableEnemy, objectPool);
+            _availableCosts.Add(availableEnemy.Data.CostForSpawn);
+            objectPool.Initialize(productParent);
+        }
     }
 
-    public override EnemyView Create(Vector3 position)
+    public override EnemyView Create(Vector3 position, int cost)
     {
-        var enemy = _objectPool.Create(position);
+        EnemyView enemy = GetEnemyByCost(position, cost);
+
+        if (enemy == null)
+        {
+            Debug.LogError("Enemy is null, spawning enemy with 0 cost");
+            enemy = GetEnemyByCost(position, 0);
+        }
 
         if (!enemy.IsInitialized)
         {
@@ -32,5 +48,18 @@ public class EnemyCreator : Creator<EnemyView>
         enemy.Model.RecoverHealth();
 
         return enemy;
+    }
+
+    private EnemyView GetEnemyByCost(Vector3 position, int cost)
+    {
+        foreach (var item in _enemiesWithObjectPools)
+        {
+            if (item.Key.Data.CostForSpawn != cost)
+                continue;
+
+            return item.Value.Create(position);
+        }
+
+        return null;
     }
 }

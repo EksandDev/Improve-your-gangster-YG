@@ -23,7 +23,6 @@ public class ToBattleButton : MonoBehaviour
         _dataForLevel.PlayerDamage = currentSellableCharacter.DamageUpgrade.CurrentValue;
         _dataForLevel.PlayerHealth = currentSellableCharacter.HealthUpgrade.CurrentValue;
         _dataForLevel.PlayerFiringRate = currentSellableCharacter.FiringRateUpgrade.CurrentValue;
-        _dataForLevel.CurrentLevel = _playerStats.CurrentLevel;
         Debug.Log($"Damage: {_dataForLevel.PlayerDamage}, " +
             $"Health: {_dataForLevel.PlayerHealth}, FiringRate: {_dataForLevel.PlayerFiringRate}");
         _sceneLoader.Load(_sceneLoader.LevelScene);

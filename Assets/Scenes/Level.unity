@@ -582,6 +582,12 @@ MonoBehaviour:
   _finishPopup: {fileID: 923748134}
   _toShopButtons:
   - {fileID: 283568084}
+  _enemyPrefabs:
+  - {fileID: 7431541047678965201, guid: edf6f3d03a98448459863714289d4406, type: 3}
+  - {fileID: 8322944471597586644, guid: 645cf25916f66a74cbde747b437bde0d, type: 3}
+  - {fileID: 7444320288741548464, guid: 6bf04f1d3a3ae77459e25b1f9111694a, type: 3}
+  - {fileID: 3703510884097001350, guid: ad8f40b353b01994f86b176ff5fac9fb, type: 3}
+  - {fileID: 4773993293390805217, guid: 5503cf2e359d9574eb007b6e99008ed8, type: 3}
   _enemyTriggers:
   - {fileID: 1828501403}
   - {fileID: 1495145347}
@@ -1194,7 +1200,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1070236187}
   - component: {fileID: 1070236186}
-  - component: {fileID: 1070236188}
   m_Layer: 0
   m_Name: ObjectPools
   m_TagString: Untagged
@@ -1232,25 +1237,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 385205314}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1070236188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070236185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70db771d211ef364cb4a233a0adeee41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefabs:
-  - {fileID: 7431541047678965201, guid: edf6f3d03a98448459863714289d4406, type: 3}
-  - {fileID: 8322944471597586644, guid: 645cf25916f66a74cbde747b437bde0d, type: 3}
-  - {fileID: 7444320288741548464, guid: 6bf04f1d3a3ae77459e25b1f9111694a, type: 3}
-  - {fileID: 3703510884097001350, guid: ad8f40b353b01994f86b176ff5fac9fb, type: 3}
-  - {fileID: 4773993293390805217, guid: 5503cf2e359d9574eb007b6e99008ed8, type: 3}
-  _count: 6
 --- !u!1 &1094901650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,7 +1561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelPartObjectPool: {fileID: 1070236186}
-  _enemyObjectPool: {fileID: 1070236188}
+  _enemyObjectPool: {fileID: 0}
 --- !u!1001 &1594845880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1879,6 +1865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBandit
       objectReference: {fileID: 0}
+    - target: {fileID: 1024887396045029114, guid: edf6f3d03a98448459863714289d4406, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3984994948405137371, guid: edf6f3d03a98448459863714289d4406, type: 3}
       propertyPath: m_LocalPosition.x
       value: 28.468
@@ -1921,11 +1911,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8741593168432220429, guid: edf6f3d03a98448459863714289d4406, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8741593168432220429, guid: edf6f3d03a98448459863714289d4406, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2070,13 +2060,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyMafioso
       objectReference: {fileID: 0}
-    - target: {fileID: 5187523374958931623, guid: ad8f40b353b01994f86b176ff5fac9fb, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 3835750521446210477, guid: ad8f40b353b01994f86b176ff5fac9fb, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5187523374958931623, guid: ad8f40b353b01994f86b176ff5fac9fb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187523374958931623, guid: ad8f40b353b01994f86b176ff5fac9fb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8893796961472986164, guid: ad8f40b353b01994f86b176ff5fac9fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2133,11 +2127,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 843676741665908460, guid: 5503cf2e359d9574eb007b6e99008ed8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 843676741665908460, guid: 5503cf2e359d9574eb007b6e99008ed8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3333522705767883286, guid: 5503cf2e359d9574eb007b6e99008ed8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2183,6 +2177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRobber
       objectReference: {fileID: 0}
+    - target: {fileID: 7577276713502442329, guid: 5503cf2e359d9574eb007b6e99008ed8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2199,6 +2197,10 @@ PrefabInstance:
     - target: {fileID: 1898638212520382862, guid: 6bf04f1d3a3ae77459e25b1f9111694a, type: 3}
       propertyPath: m_Name
       value: EnemyGangster
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898638212520382862, guid: 6bf04f1d3a3ae77459e25b1f9111694a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3671146648964025213, guid: 6bf04f1d3a3ae77459e25b1f9111694a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2242,11 +2244,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5558658355863307276, guid: 6bf04f1d3a3ae77459e25b1f9111694a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5558658355863307276, guid: 6bf04f1d3a3ae77459e25b1f9111694a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2264,6 +2266,10 @@ PrefabInstance:
     - target: {fileID: 230461110404301319, guid: 645cf25916f66a74cbde747b437bde0d, type: 3}
       propertyPath: m_Name
       value: EnemyCrook
+      objectReference: {fileID: 0}
+    - target: {fileID: 230461110404301319, guid: 645cf25916f66a74cbde747b437bde0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6552278638666064059, guid: 645cf25916f66a74cbde747b437bde0d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2307,11 +2313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6973707896704907413, guid: 645cf25916f66a74cbde747b437bde0d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6973707896704907413, guid: 645cf25916f66a74cbde747b437bde0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
