@@ -8,10 +8,9 @@ public class SaveSystem
 {
     private PlayerStats _playerStats;
     private Shop _shop;
+    private GameSaves _currentGameSaves;
 
     private readonly string _path = Application.persistentDataPath + "/GameSaves.json";
-
-    public GameSaves CurrentGameSaves { get; private set; }
 
     public SaveSystem(PlayerStats playerStats, Shop shop, List<ISaveCaller> saveCallers)
     {
@@ -35,13 +34,13 @@ public class SaveSystem
             else
                 Debug.Log("Writing file for the first time");
 
-            CurrentGameSaves = new();
-            CurrentGameSaves.Save(_playerStats, _shop);
+            _currentGameSaves = new();
+            _currentGameSaves.Save(_playerStats, _shop);
             using FileStream stream = File.Create(_path);
             stream.Close();
-            var serializedGameSaves = JsonConvert.SerializeObject(CurrentGameSaves);
+            var serializedGameSaves = JsonConvert.SerializeObject(_currentGameSaves);
             File.WriteAllText(_path, serializedGameSaves);
-            Debug.Log($"Saving JSON:{serializedGameSaves}");
+            Debug.Log($"Saving JSON: {serializedGameSaves}");
         }
 
         catch (Exception exception)
