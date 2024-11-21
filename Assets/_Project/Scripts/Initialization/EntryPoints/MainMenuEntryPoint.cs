@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using Zenject;
 
-public class MainMenuEntryPoint : MonoBehaviour
+public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
 {
     [Header("UI")]
     [SerializeField] private ChangeCharacterButton[] _changeCharacterButtons;
@@ -23,39 +23,40 @@ public class MainMenuEntryPoint : MonoBehaviour
     [Header("Other")]
     [SerializeField] private SceneContext _sceneContext;
 
+    private SaveSystem _saveSystem;
+    private GameSaves _gameSaves;
     private Shop _shop;
     private UpgradeUIController _upgradeUIController;
     private PlayerStats _playerStats;
+    private NeedLoadTracker _needLoadTracker;
     private SceneLoader _sceneLoader;
     private DataForLevel _dataForLevel;
     private List<Character> _sellableCharacters;
 
+    public event Action CallingSave;
+
     #region Zenject initialization
     [Inject]
-    private void Construct(SceneLoader sceneLoader, DataForLevel dataForLevel, PlayerStats playerStats)
+    private void Construct(SceneLoader sceneLoader, DataForLevel dataForLevel, PlayerStats playerStats,
+        NeedLoadTracker firstEnterTracker)
     {
         _sceneLoader = sceneLoader;
         _dataForLevel = dataForLevel;
         _playerStats = playerStats;
+        _needLoadTracker = firstEnterTracker;
     }
     #endregion
 
     private void Start()
     {
         _sceneContext.Run();
-
-        if (!_playerStats.IsInitialized)
-        {
-            _playerStats.Money = 100000;
-            _playerStats.CurrentLevel = 3;
-            _playerStats.IsInitialized = true;
-        }
-
         InitializeCharacters();
         _upgradeUIController = new(_damageUpgradeUI, _healthUpgradeUI, _firingRateUpgradeUI,
             _damageUpgradePurchaseButton, _healthUpgradePurchaseButton, _firingRateUpgradePurchaseButton);
         _shop = new(_playerStats, _sellableCharacters, _upgradeUIController);
         InitializeButtons();
+        InitializeSaveSystem();
+        LoadData();
 
         for (int i = 0; i < _sellableCharacters.Count - 1; i++ )
         {
@@ -65,6 +66,34 @@ public class MainMenuEntryPoint : MonoBehaviour
             _sellableCharacters[i].InstantiatedPrefab.gameObject.SetActive(true);
             break;
         }
+
+        CallingSave?.Invoke();
+    }
+
+    private void LoadData()
+    {
+        _gameSaves = _saveSystem.Load();
+
+        if (_needLoadTracker.NeedLoad)
+        {
+            _gameSaves?.Load(_playerStats, _shop);
+            _needLoadTracker.NeedLoad = false;
+            return;
+        }
+
+        _gameSaves.LoadCharacterSaves(_shop);
+    }
+
+    private void InitializeSaveSystem()
+    {
+        List<ISaveCaller> saveCallers = new()
+        {
+            this,
+            _shop,
+            _toBattleButton
+        };
+
+        _saveSystem = new(_playerStats, _shop, saveCallers);
     }
 
     private void InitializeCharacters()
@@ -80,7 +109,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
             if (!character.InstantiatedPrefab.TryGetComponent(out animator))
             {
-                Debug.LogError("Character doesn't has a Animator component");
+                Debug.LogError("Character doesn't have a Animator component");
                 continue;
             }
 
@@ -90,7 +119,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private void InitializeButtons()
     {
-        _toBattleButton.Initialize(_sceneLoader, _dataForLevel, _shop, _playerStats);
+        _toBattleButton.Initialize(_sceneLoader, _dataForLevel, _shop);
         _damageUpgradePurchaseButton.Initialize(_shop);
         _healthUpgradePurchaseButton.Initialize(_shop);
         _firingRateUpgradePurchaseButton.Initialize(_shop);

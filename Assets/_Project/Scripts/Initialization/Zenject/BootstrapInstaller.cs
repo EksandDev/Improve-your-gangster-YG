@@ -10,5 +10,6 @@ public class BootstrapInstaller : MonoInstaller
         Container.Bind<SceneLoader>().FromInstance(_sceneLoader).AsSingle();
         Container.Bind<DataForLevel>().AsSingle();
         Container.Bind<PlayerStats>().AsSingle();
+        Container.Bind<NeedLoadTracker>().AsSingle();
     }
 }

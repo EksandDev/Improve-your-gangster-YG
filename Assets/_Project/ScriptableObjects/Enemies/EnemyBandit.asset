@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f649b8f60cc8c7c4baf05600451da0de, type: 3}
   m_Name: EnemyBandit
   m_EditorClassIdentifier: 
-  _maxHealth: 30
+  _maxHealth: 25
   _damage: 8
   _firingRate: 2
   _costForSpawn: 2
