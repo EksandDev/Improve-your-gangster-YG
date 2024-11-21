@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f649b8f60cc8c7c4baf05600451da0de, type: 3}
   m_Name: EnemyMafioso
   m_EditorClassIdentifier: 
-  _maxHealth: 50
+  _maxHealth: 70
   _damage: 10
   _firingRate: 0.5
   _costForSpawn: 4

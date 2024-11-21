@@ -2,17 +2,12 @@
 
 public abstract class Upgrade : ISellable
 {
-    private bool _isPurchased;
-    private int _currentLevel;
-    private int _maxLevel;
-    private int _cost;
-
     public event Action CurrentLevelChanged; 
 
-    public bool IsPurchased => _isPurchased;
-    public int CurrentLevel => _currentLevel;
-    public int MaxLevel => _maxLevel;   
-    public int Cost => _cost;
+    public bool IsPurchased { get; private set; }
+    public int CurrentLevel { get; private set; }
+    public int MaxLevel { get; private set; }
+    public int Cost { get; private set; }
 
     public Upgrade(int cost, int maxLevel)
     {
@@ -22,12 +17,18 @@ public abstract class Upgrade : ISellable
 
     public abstract void Buy();
 
-    protected void ChangePurchaseStatus(bool value) => _isPurchased = value;
+    public void LoadData(UpgradeSaves saves)
+    {
+        ChangePurchaseStatus(saves.IsPurchased);
+        ChangeCurrentLevel(saves.CurrentLevel);
+    }
+
+    protected void ChangePurchaseStatus(bool value) => IsPurchased = value;
     protected void ChangeCurrentLevel(int value)
     {
-        _currentLevel = Math.Clamp(value, 0, MaxLevel);
+        CurrentLevel = Math.Clamp(value, 0, MaxLevel);
         CurrentLevelChanged?.Invoke();
     }
-    protected void ChangeMaxLevel(int value) => _maxLevel = Math.Clamp(value, 1, 10);
-    protected void ChangeCost(int value) => _cost = value;
+    protected void ChangeMaxLevel(int value) => MaxLevel = Math.Clamp(value, 1, 10);
+    protected void ChangeCost(int value) => Cost = value;
 }

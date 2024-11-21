@@ -1,12 +1,15 @@
 using ModestTree;
+using System;
 using System.Collections.Generic;
 
-public class Shop
+public class Shop : ISaveCaller
 {
     private List<Character> _sellableCharacters;
     private PlayerStats _playerStats;
     private UpgradeUIController _upgradeUIController;
     private int _currentCharacterIndex;
+
+    public event Action CallingSave;
 
     public IReadOnlyList<Character> SellableCharacters => _sellableCharacters;
     public Character CurrentCharacter => _sellableCharacters[CurrentCharacterIndex];
@@ -47,6 +50,7 @@ public class Shop
 
         item.Buy();
         _playerStats.Money -= item.Cost;
+        CallingSave?.Invoke();
 
         return true;
     }

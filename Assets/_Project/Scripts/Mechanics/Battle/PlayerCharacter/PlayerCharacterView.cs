@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Newtonsoft.Json;
 using UnityEngine;
 
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]

@@ -12,6 +12,7 @@ public class Character : ISellable
     public CharacterData Data => _data;
     public bool IsPurchased => _isPurchased;
     public int Cost => _data.Cost;
+    public int ID => _data.ID;
 
     public Character(CharacterData data, Transform characterSpawnPoint)
     {
@@ -27,8 +28,7 @@ public class Character : ISellable
         InstantiatedPrefab.gameObject.SetActive(false);
     }
 
-    public void Buy()
-    {
-        _isPurchased = true;
-    }
+    public void Buy() => _isPurchased = true;
+
+    public void LoadData(CharacterSaves saves) => _isPurchased = saves.IsPurchased;
 }
