@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using YG;
 
 public class SaveSystem
 {
@@ -36,6 +37,8 @@ public class SaveSystem
 
             _currentGameSaves = new();
             _currentGameSaves.Save(_playerStats, _shop);
+            YandexGame.savesData.GameSaves = _currentGameSaves;
+            YandexGame.SaveProgress();
             using FileStream stream = File.Create(_path);
             stream.Close();
             var serializedGameSaves = JsonConvert.SerializeObject(_currentGameSaves);
@@ -54,6 +57,9 @@ public class SaveSystem
     {
         try
         {
+            if (YandexGame.SDKEnabled)
+                return YandexGame.savesData.GameSaves;
+
             if (!File.Exists(_path))
                 Debug.Log($"Cannot load file at {_path}");
 

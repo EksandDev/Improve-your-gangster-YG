@@ -34,6 +34,8 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
     private DataForLevel _dataForLevel;
     private List<Character> _sellableCharacters;
 
+    private const string LEADERBORD_NAME = "CountOfLevels";
+
     public event Action CallingSave;
 
     #region Zenject initialization
@@ -69,6 +71,7 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
 
         LoadData();
         CallingSave?.Invoke();
+        YandexGame.NewLeaderboardScores(LEADERBORD_NAME, _playerStats.CurrentLevel);
     }
 
     private void LoadData()
