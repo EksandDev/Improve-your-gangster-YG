@@ -30,10 +30,11 @@ public class SaveSystem
             CurrentGameSaves = new();
             CurrentGameSaves.Save(_playerStats, _shop);
             var serializedGameSaves = JsonConvert.SerializeObject(CurrentGameSaves);
-            Debug.Log($"Saving JSON:{serializedGameSaves}");
+            Debug.Log($"Serializing JSON:{serializedGameSaves}");
 
 #if UNITY_WEBGL
             PlayerPrefs.SetString(_gameSavesKey, serializedGameSaves);
+            PlayerPrefs.Save();
             return;
 #endif
 #pragma warning disable CS0162
@@ -62,20 +63,14 @@ public class SaveSystem
     {
         try
         {
-            string serializedGameSaves = null;
-
 #if UNITY_WEBGL
-            serializedGameSaves = PlayerPrefs.GetString(_gameSavesKey);
-            Debug.Log($"Loading JSON: {File.ReadAllText(serializedGameSaves)}");
-            return JsonConvert.DeserializeObject<GameSaves>(serializedGameSaves);
+            return DeserializeSaves(PlayerPrefs.GetString(_gameSavesKey));
 #endif
 #pragma warning disable CS0162
             if (!File.Exists(_path))
                 Debug.Log($"Cannot load file at {_path}");
 
-            serializedGameSaves = File.ReadAllText(_path);
-            Debug.Log($"Loading JSON: {serializedGameSaves}");
-            return JsonConvert.DeserializeObject<GameSaves>(serializedGameSaves);
+            return DeserializeSaves(File.ReadAllText(_path));
         }
 
         catch (Exception exception)
@@ -83,5 +78,11 @@ public class SaveSystem
             Debug.Log($"Failed to load data due to: {exception.Message} {exception.StackTrace}");
             return null;
         }
+    }
+
+    private GameSaves DeserializeSaves(string saves)
+    {
+        Debug.Log($"Deserializing JSON: {saves}");
+        return JsonConvert.DeserializeObject<GameSaves>(saves);
     }
 }
