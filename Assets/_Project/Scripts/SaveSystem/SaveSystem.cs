@@ -12,6 +12,7 @@ public class SaveSystem
     private GameSaves _currentGameSaves;
 
     private readonly string _path = Application.persistentDataPath + "/GameSaves.json";
+    private readonly string _gameSavesKey = "GameSaves";
 
     public SaveSystem(PlayerStats playerStats, Shop shop, List<ISaveCaller> saveCallers)
     {
@@ -26,6 +27,17 @@ public class SaveSystem
     {
         try
         {
+            CurrentGameSaves = new();
+            CurrentGameSaves.Save(_playerStats, _shop);
+            var serializedGameSaves = JsonConvert.SerializeObject(CurrentGameSaves);
+            Debug.Log($"Serializing JSON:{serializedGameSaves}");
+
+#if UNITY_WEBGL
+            PlayerPrefs.SetString(_gameSavesKey, serializedGameSaves);
+            PlayerPrefs.Save();
+            return;
+#endif
+#pragma warning disable CS0162
             if (File.Exists(_path))
             {
                 Debug.Log("Data exists. Deleting old file and writing a new one");
@@ -35,15 +47,9 @@ public class SaveSystem
             else
                 Debug.Log("Writing file for the first time");
 
-            _currentGameSaves = new();
-            _currentGameSaves.Save(_playerStats, _shop);
-            YandexGame.savesData.GameSaves = _currentGameSaves;
-            YandexGame.SaveProgress();
             using FileStream stream = File.Create(_path);
             stream.Close();
-            var serializedGameSaves = JsonConvert.SerializeObject(_currentGameSaves);
             File.WriteAllText(_path, serializedGameSaves);
-            Debug.Log($"Saving JSON: {serializedGameSaves}");
         }
 
         catch (Exception exception)
@@ -57,15 +63,18 @@ public class SaveSystem
     {
         try
         {
+#if UNITY_WEBGL
             if (YandexGame.SDKEnabled)
                 return YandexGame.savesData.GameSaves;
+          
+            return DeserializeSaves(PlayerPrefs.GetString(_gameSavesKey));
+#endif
+#pragma warning disable CS0162
 
             if (!File.Exists(_path))
                 Debug.Log($"Cannot load file at {_path}");
 
-            var deserializedGameSaves = JsonConvert.DeserializeObject<GameSaves>(File.ReadAllText(_path));
-            Debug.Log($"Loading JSON: {File.ReadAllText(_path)}");
-            return deserializedGameSaves;
+            return DeserializeSaves(File.ReadAllText(_path));
         }
 
         catch (Exception exception)
@@ -73,5 +82,11 @@ public class SaveSystem
             Debug.Log($"Failed to load data due to: {exception.Message} {exception.StackTrace}");
             return null;
         }
+    }
+
+    private GameSaves DeserializeSaves(string saves)
+    {
+        Debug.Log($"Deserializing JSON: {saves}");
+        return JsonConvert.DeserializeObject<GameSaves>(saves);
     }
 }
