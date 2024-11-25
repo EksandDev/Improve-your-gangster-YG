@@ -9,10 +9,11 @@ public class SaveSystem
 {
     private PlayerStats _playerStats;
     private Shop _shop;
-    private GameSaves _currentGameSaves;
 
     private readonly string _path = Application.persistentDataPath + "/GameSaves.json";
     private readonly string _gameSavesKey = "GameSaves";
+
+    public GameSaves CurrentGameSaves { get; private set; }
 
     public SaveSystem(PlayerStats playerStats, Shop shop, List<ISaveCaller> saveCallers)
     {
@@ -33,6 +34,9 @@ public class SaveSystem
             Debug.Log($"Serializing JSON:{serializedGameSaves}");
 
 #if UNITY_WEBGL
+            if (YandexGame.SDKEnabled)
+                YandexGame.savesData.GameSaves = CurrentGameSaves;
+
             PlayerPrefs.SetString(_gameSavesKey, serializedGameSaves);
             PlayerPrefs.Save();
             return;
