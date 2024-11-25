@@ -3,16 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using YG;
 
 public class SaveSystem
 {
     private PlayerStats _playerStats;
     private Shop _shop;
+    private GameSaves _currentGameSaves;
 
     private readonly string _path = Application.persistentDataPath + "/GameSaves.json";
     private readonly string _gameSavesKey = "GameSaves";
-
-    public GameSaves CurrentGameSaves { get; private set; }
 
     public SaveSystem(PlayerStats playerStats, Shop shop, List<ISaveCaller> saveCallers)
     {
@@ -64,9 +64,13 @@ public class SaveSystem
         try
         {
 #if UNITY_WEBGL
+            if (YandexGame.SDKEnabled)
+                return YandexGame.savesData.GameSaves;
+          
             return DeserializeSaves(PlayerPrefs.GetString(_gameSavesKey));
 #endif
 #pragma warning disable CS0162
+
             if (!File.Exists(_path))
                 Debug.Log($"Cannot load file at {_path}");
 

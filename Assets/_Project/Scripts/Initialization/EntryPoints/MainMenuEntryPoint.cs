@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 using Zenject;
 
 public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
@@ -33,6 +34,8 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
     private DataForLevel _dataForLevel;
     private List<Character> _sellableCharacters;
 
+    private const string LEADERBORD_NAME = "CountOfLevels";
+
     public event Action CallingSave;
 
     #region Zenject initialization
@@ -56,7 +59,6 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
         _shop = new(_playerStats, _sellableCharacters, _upgradeUIController);
         InitializeButtons();
         InitializeSaveSystem();
-        LoadData();
 
         for (int i = 0; i < _sellableCharacters.Count - 1; i++ )
         {
@@ -67,7 +69,9 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
             break;
         }
 
+        LoadData();
         CallingSave?.Invoke();
+        YandexGame.NewLeaderboardScores(LEADERBORD_NAME, _playerStats.CurrentLevel);
     }
 
     private void LoadData()
@@ -78,6 +82,7 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
         {
             _gameSaves?.Load(_playerStats, _shop);
             _needLoadTracker.NeedLoad = false;
+            YandexGame.GameReadyAPI();
             return;
         }
 

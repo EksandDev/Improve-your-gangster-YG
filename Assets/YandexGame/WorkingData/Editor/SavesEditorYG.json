@@ -1,0 +1,47 @@
+{
+  "idSave": 56,
+  "isFirstSession": false,
+  "language": "ru",
+  "promptDone": false,
+  "GameSaves": {
+    "PlayerStats": {
+      "Money": 99210,
+      "CurrentLevel": 3
+    },
+    "CharacterSaves": [
+      {
+        "DamageUpgradeSaves": {
+          "IsPurchased": false,
+          "CurrentLevel": 3
+        },
+        "HealthUpgradeSaves": {
+          "IsPurchased": false,
+          "CurrentLevel": 0
+        },
+        "FiringRateUpgradeSaves": {
+          "IsPurchased": false,
+          "CurrentLevel": 0
+        },
+        "IsPurchased": false,
+        "ID": 0
+      },
+      {
+        "DamageUpgradeSaves": {
+          "IsPurchased": false,
+          "CurrentLevel": 3
+        },
+        "HealthUpgradeSaves": {
+          "IsPurchased": false,
+          "CurrentLevel": 4
+        },
+        "FiringRateUpgradeSaves": {
+          "IsPurchased": false,
+          "CurrentLevel": 1
+        },
+        "IsPurchased": false,
+        "ID": 1
+      }
+    ],
+    "CurrentCharacterIndex": 1
+  }
+}
