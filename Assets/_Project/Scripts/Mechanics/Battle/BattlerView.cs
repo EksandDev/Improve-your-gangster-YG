@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
 public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
