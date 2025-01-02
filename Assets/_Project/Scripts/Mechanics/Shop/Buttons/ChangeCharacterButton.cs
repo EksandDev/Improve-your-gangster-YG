@@ -27,7 +27,7 @@ public class ChangeCharacterButton : MonoBehaviour
 
         else
         {
-            if (_shop.SellableCharacters.Count - 1 <= _shop.CurrentCharacterIndex)
+            if (_shop.CurrentCharacterIndex != 0)
             {
                 _shop.CurrentCharacterIndex -= 1;
                 return;
