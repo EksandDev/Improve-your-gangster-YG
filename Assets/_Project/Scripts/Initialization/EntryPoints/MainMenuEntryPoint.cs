@@ -15,6 +15,7 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
     [SerializeField] private UpgradeUI _damageUpgradeUI;
     [SerializeField] private UpgradeUI _firingRateUpgradeUI;
     [SerializeField] private UpgradeUI _healthUpgradeUI;
+    [SerializeField] private MoneyUI _moneyUI;
 
     [Header("Characters")]
     [SerializeField] private CharacterData[] _characterData;
@@ -72,6 +73,7 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
         LoadData();
         CallingSave?.Invoke();
         YandexGame.NewLeaderboardScores(LEADERBORD_NAME, _playerStats.CurrentLevel);
+        _moneyUI.Inititialize(_playerStats, _shop);
     }
 
     private void LoadData()

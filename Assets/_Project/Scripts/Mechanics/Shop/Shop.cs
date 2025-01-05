@@ -10,6 +10,7 @@ public class Shop : ISaveCaller
     private int _currentCharacterIndex;
 
     public event Action CallingSave;
+    public event Action ItemPurchased;
 
     public IReadOnlyList<Character> SellableCharacters => _sellableCharacters;
     public Character CurrentCharacter => _sellableCharacters[CurrentCharacterIndex];
@@ -50,6 +51,7 @@ public class Shop : ISaveCaller
 
         item.Buy();
         _playerStats.Money -= item.Cost;
+        ItemPurchased?.Invoke();
         CallingSave?.Invoke();
 
         return true;

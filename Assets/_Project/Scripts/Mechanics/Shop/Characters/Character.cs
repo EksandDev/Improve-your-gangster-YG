@@ -17,12 +17,12 @@ public class Character : ISellable
     public Character(CharacterData data, Transform characterSpawnPoint)
     {
         _data = data;
-        DamageUpgrade = new
-            (_data.UpgradeCostUp, _data.DamageUpgradeMaxLevel, _data.DamageUpgradeLevelValues);
-        FiringRateUpgrade = new
-            (_data.UpgradeCostUp, _data.FiringRateUpgradeMaxLevel, _data.FiringRateUpgradeLevelValues);
-        HealthUpgrade = new
-            (_data.UpgradeCostUp, _data.HealthUpgradeMaxLevel, _data.HealthUpgradeLevelValues);
+        DamageUpgrade = new(_data.UpgradeCostUp, 
+            _data.DamageUpgradeMaxLevel, _data.UpgradeCostUp, _data.DamageUpgradeLevelValues);
+        FiringRateUpgrade = new(_data.UpgradeCostUp, 
+            _data.FiringRateUpgradeMaxLevel, _data.UpgradeCostUp, _data.FiringRateUpgradeLevelValues);
+        HealthUpgrade = new (_data.UpgradeCostUp, 
+            _data.HealthUpgradeMaxLevel, _data.UpgradeCostUp, _data.HealthUpgradeLevelValues);
         InstantiatedPrefab = Object.Instantiate(_data.Prefab, characterSpawnPoint.position, 
             characterSpawnPoint.rotation, characterSpawnPoint);
         InstantiatedPrefab.gameObject.SetActive(false);
