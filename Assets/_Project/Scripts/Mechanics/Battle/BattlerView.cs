@@ -44,6 +44,9 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
     public virtual void Initialize(Level level, float damage, float maxHealth, float firingRate) 
         => Initialize(level);
 
+    public virtual void Initialize(Level level, float damage, float maxHealth, float firingRate, int moneyForKill)
+        => Initialize(level, damage, maxHealth, firingRate);
+
     public virtual void Initialize(EnemyTrigger[] enemyTriggers, Level level, float damage, float maxHealth, 
         float firingRate) => Initialize(level, damage, maxHealth, firingRate);
 

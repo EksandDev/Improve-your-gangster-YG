@@ -2,25 +2,18 @@
 
 public class FinishTrigger : MonoBehaviour
 {
-    private CameraController _cameraController;
-    private PlayerStats _playerStats;
-    private Transform _finishPopup;
+    private LevelEnd _levelEnd;
 
-    public void Initialize(CameraController cameraController, PlayerStats playerStats, Transform finishPopup)
+    public void Initialize(LevelEnd levelEnd)
     {
-        _cameraController = cameraController;
-        _playerStats = playerStats;
-        _finishPopup = finishPopup;
+        _levelEnd = levelEnd;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerCharacterView player))
         {
-            _cameraController.Deactivate();
-            _playerStats.CurrentLevel++;
-            _finishPopup.gameObject.SetActive(true);
-            Debug.Log($"Current level: {_playerStats.CurrentLevel}");
+            _levelEnd.Finish();
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(MovableObject))]
 public class EnemyTrigger : MonoBehaviour
 {
     [SerializeField] private bool _isLeftSide;

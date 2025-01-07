@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bandit
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1090571414178918383, guid: 55b64caa815555a4b8bde5c584f8d892, type: 3}
-  _cost: 0
+  _cost: 354
   _UpgradeCostUp: 80
   _isPurchasedOnStart: 0
   _healthUpgradeMaxLevel: 5

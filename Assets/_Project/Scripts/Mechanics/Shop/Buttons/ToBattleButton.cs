@@ -18,6 +18,9 @@ public class ToBattleButton : MonoBehaviour, ISaveCaller
 
     public void OnClick()
     {
+        if (!_shop.CurrentCharacter.IsPurchased)
+            return;
+
         var currentSellableCharacter = _shop.CurrentCharacter;
         var currentCharacterPrefab = currentSellableCharacter.Data.Prefab;
         _dataForLevel.PlayerCharacterPrefab = currentCharacterPrefab;

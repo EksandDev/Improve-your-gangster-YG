@@ -26,12 +26,14 @@ public class MoneyUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _shop.CallingSave += UpdateText;
+        if (_shop != null)
+            _shop.CallingSave += UpdateText;
     }
 
     private void OnDisable()
     {
-        _shop.CallingSave -= UpdateText;
+        if (_shop != null)
+            _shop.CallingSave -= UpdateText;
     }
 
     private void UpdateText()

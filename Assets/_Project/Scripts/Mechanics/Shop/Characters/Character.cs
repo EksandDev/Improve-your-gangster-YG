@@ -26,6 +26,7 @@ public class Character : ISellable
         InstantiatedPrefab = Object.Instantiate(_data.Prefab, characterSpawnPoint.position, 
             characterSpawnPoint.rotation, characterSpawnPoint);
         InstantiatedPrefab.gameObject.SetActive(false);
+        _isPurchased = data.IsPurchasedOnStart;
     }
 
     public void Buy() => _isPurchased = true;

@@ -11764,6 +11764,7 @@ GameObject:
   - component: {fileID: 3801872427907947633}
   - component: {fileID: 7176823235396737498}
   - component: {fileID: 3643470953513996229}
+  - component: {fileID: 72609452856910860}
   m_Layer: 0
   m_Name: PlayerGangster
   m_TagString: Untagged
@@ -12018,6 +12019,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &72609452856910860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973796194510430601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23365f31161ee5a429368e27500cd098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5106448071411286040
 GameObject:
   m_ObjectHideFlags: 0

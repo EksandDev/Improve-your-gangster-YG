@@ -17475,6 +17475,7 @@ GameObject:
   - component: {fileID: 7996667006955930489}
   - component: {fileID: 7936630552633557490}
   - component: {fileID: 4497290587381635497}
+  - component: {fileID: 1020564256603335556}
   m_Layer: 0
   m_Name: PlayerMafioso
   m_TagString: Untagged
@@ -17729,6 +17730,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1020564256603335556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6290752580159803095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23365f31161ee5a429368e27500cd098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6514286259238595854
 GameObject:
   m_ObjectHideFlags: 0

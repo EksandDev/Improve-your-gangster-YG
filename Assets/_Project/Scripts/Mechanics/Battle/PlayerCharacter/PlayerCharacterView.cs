@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Newtonsoft.Json;
 using UnityEngine;
 
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
@@ -10,6 +9,9 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
     [SerializeField] private Transform _idleGunPoint;
     [SerializeField] private Transform _gun;
     [SerializeField] private ParticleSystem _moneyEffect;
+
+    private EnemyTrigger[] _enemyTriggers;
+    private Level _level;
 
     public Transform RunDirectionPoint { get; set; }
     public Transform BattleCameraPoint => _battleCameraPoint;
@@ -59,6 +61,8 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
     {
         base.Initialize(level);
 
+        _enemyTriggers = enemyTriggers;
+        _level = level;
         Model = new(level, Attacker, transform, damage, maxHealth, firingRate, enemyTriggers);
 
         Model.BattleStarted += OnStartBattle;
@@ -101,5 +105,15 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
         IsShooting = false;
         IsStrafingRight = false;
         IsStrafingLeft = false;
+    }
+
+    public override void OnDie()
+    {
+        base.OnDie();
+        _level.Mover.AddMovingObject(GetComponent<MovableObject>());
+        _moneyEffect.gameObject.SetActive(false);
+
+        foreach (var trigger in _enemyTriggers)
+            _level.Mover.AddMovingObject(trigger.GetComponent<MovableObject>());
     }
 }

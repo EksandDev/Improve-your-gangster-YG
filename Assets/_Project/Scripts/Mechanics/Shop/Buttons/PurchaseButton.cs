@@ -24,12 +24,6 @@ public class PurchaseButton : MonoBehaviour
         _shop = shop;
     }
 
-    public void Initialize(Shop shop, ISellable sellableItem)
-    {
-        Initialize(shop);
-        Item = sellableItem;
-    }
-
     public void OnClick()
     {
         if (_shop.TryBuyItem(Item))
