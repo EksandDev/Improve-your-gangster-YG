@@ -5,15 +5,18 @@ public class EnemyCreator : CreatorByCost<EnemyView>
 {
     private Level _level;
     private DifficultCalculator _difficultCalculator;
+    private LevelStatsCounter _levelStatsCounter;
     private Dictionary<EnemyView, EnemyObjectPool> _enemiesWithObjectPools;
     private List<int> _availableCosts;
 
     public IReadOnlyList<int> AvailableCosts => _availableCosts;
 
-    public EnemyCreator(Level level, Transform productParent, DifficultCalculator difficultCalculator)
+    public EnemyCreator(Level level, Transform productParent, DifficultCalculator difficultCalculator, 
+        LevelStatsCounter levelStatsCounter)
     {
         _level = level;
         _difficultCalculator = difficultCalculator;
+        _levelStatsCounter = levelStatsCounter;
         _availableCosts = new();
         _enemiesWithObjectPools = new();
 
@@ -24,6 +27,7 @@ public class EnemyCreator : CreatorByCost<EnemyView>
             _availableCosts.Add(availableEnemy.Data.CostForSpawn);
             objectPool.Initialize(productParent);
         }
+        _levelStatsCounter = levelStatsCounter;
     }
 
     public override EnemyView Create(Vector3 position, int cost)
@@ -41,10 +45,11 @@ public class EnemyCreator : CreatorByCost<EnemyView>
             var damage = enemy.Data.Damage * _difficultCalculator.EnemyDamageModifier;
             var maxHealth =  enemy.Data.MaxHealth * _difficultCalculator.EnemyHealthModifier;
             var firingRate = enemy.Data.FiringRate * _difficultCalculator.EnemyFiringRateModifier;
-            enemy.Initialize(_level, damage, maxHealth, firingRate);
+            enemy.Initialize(_level, damage, maxHealth, firingRate, enemy.Data.MoneyForKill);
             _level.Mover.AddMovingObject(enemy.GetComponent<MovableObject>());
         }
 
+        _levelStatsCounter.SubscribeToDeath(enemy.Model);
         enemy.Model.RecoverHealth();
 
         return enemy;

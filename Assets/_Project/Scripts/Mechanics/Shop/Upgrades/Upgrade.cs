@@ -19,6 +19,7 @@ public abstract class Upgrade : ISellable
 
     public void LoadData(UpgradeSaves saves)
     {
+        ChangeCost(saves.Cost);
         ChangePurchaseStatus(saves.IsPurchased);
         ChangeCurrentLevel(saves.CurrentLevel);
     }

@@ -23,11 +23,11 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     }
     #endregion
 
-    public override void Initialize(Level level, float damage, float maxHealth, float firingRate)
+    public override void Initialize(Level level, float damage, float maxHealth, float firingRate, int moneyForKill)
     {
         base.Initialize(level);
 
-        Model = new(level, Attacker, transform, damage, maxHealth, firingRate);
+        Model = new(level, Attacker, transform, damage, maxHealth, firingRate, moneyForKill);
 
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;

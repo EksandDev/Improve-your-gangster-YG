@@ -9,12 +9,15 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
     [Header("UI")]
     [SerializeField] private ChangeCharacterButton[] _changeCharacterButtons;
     [SerializeField] private ToBattleButton _toBattleButton;
+    [SerializeField] private CharacterPurchaseButton _characterPurchaseButton;
     [SerializeField] private PurchaseButton _damageUpgradePurchaseButton;
     [SerializeField] private PurchaseButton _firingRateUpgradePurchaseButton;
     [SerializeField] private PurchaseButton _healthUpgradePurchaseButton;
     [SerializeField] private UpgradeUI _damageUpgradeUI;
     [SerializeField] private UpgradeUI _firingRateUpgradeUI;
     [SerializeField] private UpgradeUI _healthUpgradeUI;
+    [SerializeField] private MoneyUI _moneyUI;
+    [SerializeField] private GameObject _lockImage;
 
     [Header("Characters")]
     [SerializeField] private CharacterData[] _characterData;
@@ -55,8 +58,9 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
         _sceneContext.Run();
         InitializeCharacters();
         _upgradeUIController = new(_damageUpgradeUI, _healthUpgradeUI, _firingRateUpgradeUI,
-            _damageUpgradePurchaseButton, _healthUpgradePurchaseButton, _firingRateUpgradePurchaseButton);
-        _shop = new(_playerStats, _sellableCharacters, _upgradeUIController);
+            _damageUpgradePurchaseButton, _healthUpgradePurchaseButton, _firingRateUpgradePurchaseButton, 
+            _lockImage);
+        _shop = new(_playerStats, _sellableCharacters, _upgradeUIController, _characterPurchaseButton);
         InitializeButtons();
         InitializeSaveSystem();
 
@@ -70,8 +74,10 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
         }
 
         LoadData();
+        _shop.UpdateUI();
         CallingSave?.Invoke();
         YandexGame.NewLeaderboardScores(LEADERBORD_NAME, _playerStats.CurrentLevel);
+        _moneyUI.Inititialize(_playerStats, _shop);
     }
 
     private void LoadData()
@@ -125,6 +131,7 @@ public class MainMenuEntryPoint : MonoBehaviour, ISaveCaller
     private void InitializeButtons()
     {
         _toBattleButton.Initialize(_sceneLoader, _dataForLevel, _shop);
+        _characterPurchaseButton.Initialize(_shop);
         _damageUpgradePurchaseButton.Initialize(_shop);
         _healthUpgradePurchaseButton.Initialize(_shop);
         _firingRateUpgradePurchaseButton.Initialize(_shop);

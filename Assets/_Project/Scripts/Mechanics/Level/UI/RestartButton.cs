@@ -1,16 +1,9 @@
 ﻿using UnityEngine;
 
-public class RestartButton : MonoBehaviour
+public class RestartButton : SceneLoaderButton
 {
-    private SceneLoader _sceneLoader;
-
-    public void Initialize(SceneLoader sceneLoader)
+    public void Restart()
     {
-        _sceneLoader = sceneLoader;
-    }
-
-    public void GoToShop()
-    {
-        _sceneLoader.Load(_sceneLoader.LevelScene);
+        SceneLoader.Load(SceneLoader.LevelScene);
     }
 }

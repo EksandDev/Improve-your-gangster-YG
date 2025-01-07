@@ -1,22 +1,33 @@
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class LevelEnd
 {
-    public SceneLoader _sceneLoader;
+    private CameraController _cameraController;
+    private PlayerStats _playerStats;
+    private Popup _finishPopup;
+    private Popup _failurePopup;
 
-    public LevelEnd(PlayerCharacterModel model, SceneLoader sceneLoader)
+    public LevelEnd(PlayerCharacterModel model, CameraController cameraController, PlayerStats playerStats,
+        Popup finishPopup, Popup failurePopup)
     {
-        model.Died += OnFailure;
-        _sceneLoader = sceneLoader;
+        model.Died += Failure;
+        _cameraController = cameraController;
+        _playerStats = playerStats;
+        _finishPopup = finishPopup;
+        _failurePopup = failurePopup;
     }
 
-    public void OnFailure()
+    public void Failure()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        _cameraController.Deactivate();
+        _failurePopup.Show();
     }
 
-    public void OnFinish()
+    public void Finish()
     {
-        _sceneLoader.Load(_sceneLoader.LevelScene);
+        _cameraController.Deactivate();
+        _playerStats.CurrentLevel++;
+        _finishPopup.Show();
+        Debug.Log($"Current level: {_playerStats.CurrentLevel}");
     }
 }

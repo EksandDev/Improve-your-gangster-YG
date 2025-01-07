@@ -11,9 +11,10 @@ public class LevelEntryPoint : MonoBehaviour
     [SerializeField] private Transform _runCameraPoint;
 
     [Header("UI")]
-    [SerializeField] private Transform _failurePopup;
-    [SerializeField] private Transform _finishPopup;
-    [SerializeField] private ToShopButton[] _toShopButtons;
+    [SerializeField] private Popup _failurePopup;
+    [SerializeField] private Popup _finishPopup;
+    [SerializeField] private LevelStatsCounterUI[] _levelStatsCountersUI;
+    [SerializeField] private SceneLoaderButton[] _sceneLoaderButtons;
 
     [Header("Enemy things")]
     [SerializeField] private EnemyView[] _enemyPrefabs;
@@ -30,21 +31,18 @@ public class LevelEntryPoint : MonoBehaviour
     private CameraController _cameraController;
     private SceneLoader _sceneLoader;
     private PlayerCharacterView _playerView;
-    private EnemyObjectPool _enemyObjectPool;
     private LevelPartObjectPool _levelPartObjectPool;
     private DataForLevel _dataForLevel;
     private PlayerStats _playerStats;
 
     #region Zenject initialization
     [Inject]
-    private void Construct(LevelMover levelMover, CameraController cameraController, SceneLoader sceneLoader,
-        EnemyObjectPool enemyObjectPool, LevelPartObjectPool levelPartObjectPool, DataForLevel dataForLevel,
-        PlayerStats playerStats)
+    private void Construct(LevelMover levelMover, CameraController cameraController, SceneLoader sceneLoader, 
+        LevelPartObjectPool levelPartObjectPool, DataForLevel dataForLevel,PlayerStats playerStats)
     {
         _levelMover = levelMover;
         _cameraController = cameraController;
         _sceneLoader = sceneLoader;
-        _enemyObjectPool = enemyObjectPool;
         _levelPartObjectPool = levelPartObjectPool;
         _dataForLevel = dataForLevel;
         _playerStats = playerStats;
@@ -60,12 +58,14 @@ public class LevelEntryPoint : MonoBehaviour
         _level = new(_cameraController, _levelMover, _playerView);
         DifficultCalculator difficultCalculator = new(_enemyPrefabs);
         difficultCalculator.Calculate(_playerStats.CurrentLevel);
-        EnemyCreator enemyCreator = new(_level, _environment, difficultCalculator);
-        LevelPartCreator levelPartCreator = new(_level, enemyCreator, _levelPartObjectPool, 
-            _finalLevelPart, _cameraController, _playerStats, difficultCalculator, _finishPopup, _environment);
+        LevelStatsCounter levelStatsCounter = new();
+        EnemyCreator enemyCreator = new(_level, _environment, difficultCalculator, levelStatsCounter);
         PlayerCharacterInitialize();
-        LevelEnd levelEnd = new(_playerView.Model, _sceneLoader);
-        LevelUIInitializer levelUIInitializer = new(_toShopButtons, _sceneLoader);
+        LevelEnd levelEnd = new(_playerView.Model, _cameraController, _playerStats, _finishPopup, _failurePopup);
+        LevelPartCreator levelPartCreator = new(_level, enemyCreator, _levelPartObjectPool, 
+            _finalLevelPart, difficultCalculator, levelEnd, _environment);
+        LevelUIInitializer levelUIInitializer = new(_sceneLoaderButtons, _levelStatsCountersUI,
+            _sceneLoader, levelStatsCounter, _playerStats);
         _levelMover.Initialize();
 
         foreach (var enemyTrigger in _enemyTriggers)
