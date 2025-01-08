@@ -58,7 +58,7 @@ public class ObjectPool<T> where T : MonoBehaviour
             return element;
         }
 
-        T currentObject = CreateObject(true);
+        T currentObject = CreateRandomObject(true);
         currentObject.transform.position = spawnPosition;
         return currentObject;
     }
@@ -70,13 +70,19 @@ public class ObjectPool<T> where T : MonoBehaviour
         for (int i = 0; i < _prefabs.Count; i++)
         {
             for (int j = 0; j < prefabsCount; j++)
-                CreateObject();
+                CreateObject(_prefabs[i]);
         }
     }
 
-    private T CreateObject(bool isActive = false)
+    private T CreateRandomObject(bool isActive = false)
     {
         var createdObject = Object.Instantiate(GetRandomPrefabFromPrefabs(), Container);
+        return CreateObject(createdObject, isActive);
+    }
+
+    private T CreateObject(T prefab, bool isActive = false)
+    {
+        var createdObject = Object.Instantiate(prefab, Container);
         createdObject.gameObject.SetActive(isActive);
         _pool.Add(createdObject);
         return createdObject;

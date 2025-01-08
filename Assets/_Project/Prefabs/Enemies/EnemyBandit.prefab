@@ -480,7 +480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3984994948405137371
 Transform:
   m_ObjectHideFlags: 0
@@ -489,7 +489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024887396045029114}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.47, y: -1.1828427, z: -1.1880674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -627,8 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b60066ad5b2708f47937e10387244dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 8a7a80633a29d7743a4cc9da324dea19, type: 2}
   _healthSlider: {fileID: 8336546682500819478}
+  _data: {fileID: 11400000, guid: 8a7a80633a29d7743a4cc9da324dea19, type: 2}
   _bloodSplatEffect: {fileID: 7024716462083379564}
 --- !u!114 &31873073410960400
 MonoBehaviour:
@@ -6827,7 +6827,7 @@ RectTransform:
   m_Father: {fileID: 4789133866476137154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

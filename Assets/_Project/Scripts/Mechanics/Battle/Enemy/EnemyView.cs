@@ -4,8 +4,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
 public class EnemyView : BattlerView<EnemyModel>, IProduct
 {
-    [SerializeField] private EnemyData _data;
     [SerializeField] private Slider _healthSlider;
+    [SerializeField] private EnemyData _data;
     [SerializeField] private ParticleSystem _bloodSplatEffect;
 
     public EnemyData Data => _data;
@@ -43,14 +43,13 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     {
         base.OnReceiveDamage();
 
-        _healthSlider.value = Model.CurrentHealth;
         _bloodSplatEffect.Play();
+        _healthSlider.value = Model.CurrentHealth;
     }
 
     public override void OnHealthRecovered()
     {
         base.OnHealthRecovered();
-
         _healthSlider.value = Model.CurrentHealth;
     }
 }

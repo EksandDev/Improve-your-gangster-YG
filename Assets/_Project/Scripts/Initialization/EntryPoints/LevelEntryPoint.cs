@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 public class LevelEntryPoint : MonoBehaviour
@@ -13,6 +14,7 @@ public class LevelEntryPoint : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Popup _failurePopup;
     [SerializeField] private Popup _finishPopup;
+    [SerializeField] private Slider _playerHealthSlider; 
     [SerializeField] private LevelStatsCounterUI[] _levelStatsCountersUI;
     [SerializeField] private SceneLoaderButton[] _sceneLoaderButtons;
 
@@ -23,8 +25,6 @@ public class LevelEntryPoint : MonoBehaviour
     [Header("Other")]
     [SerializeField] private FinalLevelPart _finalLevelPart;
     [SerializeField] private SceneContext _sceneContext;
-    [SerializeField] private int _damage;
-    [SerializeField] private int _maxHealth;
 
     private Level _level;
     private LevelMover _levelMover;
@@ -77,7 +77,7 @@ public class LevelEntryPoint : MonoBehaviour
     private void PlayerCharacterInitialize()
     {
         _playerView.Initialize(_enemyTriggers, _level, _dataForLevel.PlayerDamage, 
-            _dataForLevel.PlayerHealth, _dataForLevel.PlayerFiringRate);
+            _dataForLevel.PlayerHealth, _dataForLevel.PlayerFiringRate, _playerHealthSlider);
         _playerView.RunDirectionPoint = _runDirectionPoint;
     }
 }
