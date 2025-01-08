@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
 public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
@@ -12,6 +13,7 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
 
     private EnemyTrigger[] _enemyTriggers;
     private Level _level;
+    private Slider _healthSlider;
 
     public Transform RunDirectionPoint { get; set; }
     public Transform BattleCameraPoint => _battleCameraPoint;
@@ -57,12 +59,13 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
     #endregion
 
     public override void Initialize(EnemyTrigger[] enemyTriggers, Level level, float damage, float maxHealth, 
-        float firingRate)
+        float firingRate, Slider healthSlider)
     {
-        base.Initialize(level);
+        base.Initialize(enemyTriggers, level, damage, maxHealth, firingRate, healthSlider);
 
         _enemyTriggers = enemyTriggers;
         _level = level;
+        _healthSlider = healthSlider;
         Model = new(level, Attacker, transform, damage, maxHealth, firingRate, enemyTriggers);
 
         Model.BattleStarted += OnStartBattle;
@@ -72,10 +75,14 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
         Model.Died += OnDie;
 
         IsRunning = true;
+        _healthSlider.maxValue = Model.MaxHealth;
+        _healthSlider.value = Model.CurrentHealth;
+        _healthSlider.gameObject.SetActive(false);
     }
 
     public override void OnStartBattle(BattlerModel target)
     {
+        _healthSlider.gameObject.SetActive(true);
         _gun.parent = _battleGunPoint;
         _gun.position = _battleGunPoint.position;
         _gun.rotation = _battleGunPoint.rotation;
@@ -98,6 +105,7 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
 
     public override void OnStopBattle()
     {
+        _healthSlider.gameObject.SetActive(false);
         _gun.parent = _idleGunPoint;
         _gun.position = _idleGunPoint.position;
         _gun.rotation = _idleGunPoint.rotation;
@@ -110,10 +118,23 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
     public override void OnDie()
     {
         base.OnDie();
+        _healthSlider.gameObject.SetActive(false);
         _level.Mover.AddMovingObject(GetComponent<MovableObject>());
         _moneyEffect.gameObject.SetActive(false);
 
         foreach (var trigger in _enemyTriggers)
             _level.Mover.AddMovingObject(trigger.GetComponent<MovableObject>());
+    }
+
+    public override void OnHealthRecovered()
+    {
+        base.OnHealthRecovered();
+        _healthSlider.value = Model.CurrentHealth;
+    }
+
+    public override void OnReceiveDamage()
+    {
+        base.OnReceiveDamage();
+        _healthSlider.value = Model.CurrentHealth;
     }
 }

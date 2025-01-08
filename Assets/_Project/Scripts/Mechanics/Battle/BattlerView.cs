@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rotator), typeof(Attacker), typeof(Animator))]
 public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
@@ -48,7 +49,7 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
         => Initialize(level, damage, maxHealth, firingRate);
 
     public virtual void Initialize(EnemyTrigger[] enemyTriggers, Level level, float damage, float maxHealth, 
-        float firingRate) => Initialize(level, damage, maxHealth, firingRate);
+        float firingRate, Slider healthSlider) => Initialize(level, damage, maxHealth, firingRate);
 
     public virtual void OnStartBattle(BattlerModel target)
     {
@@ -62,9 +63,7 @@ public abstract class BattlerView<T> : MonoBehaviour where T : BattlerModel
         IsShooting = false;
     }
 
-    public virtual void OnReceiveDamage() { }
-
     public virtual void OnHealthRecovered() => IsDying = false;
-
     public virtual void OnDie() => IsDying = true;
+    public virtual void OnReceiveDamage() { }
 }
