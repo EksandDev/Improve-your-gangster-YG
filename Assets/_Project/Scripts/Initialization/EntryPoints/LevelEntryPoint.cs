@@ -22,6 +22,10 @@ public class LevelEntryPoint : MonoBehaviour
     [SerializeField] private EnemyView[] _enemyPrefabs;
     [SerializeField] private EnemyTrigger[] _enemyTriggers;
 
+    [Header("Particle object pools")]
+    [SerializeField] private ParticleObjectPool _bloodParticleObjectPool;
+    [SerializeField] private ParticleObjectPool _shotParticleObjectPool;
+
     [Header("Other")]
     [SerializeField] private FinalLevelPart _finalLevelPart;
     [SerializeField] private SceneContext _sceneContext;
@@ -34,6 +38,9 @@ public class LevelEntryPoint : MonoBehaviour
     private LevelPartObjectPool _levelPartObjectPool;
     private DataForLevel _dataForLevel;
     private PlayerStats _playerStats;
+    private ParticleCreator _bloodParticleCreator;
+    private ParticleCreator _shotParticleCreator;
+    private ParticleController _particleController;
 
     #region Zenject initialization
     [Inject]
@@ -56,10 +63,12 @@ public class LevelEntryPoint : MonoBehaviour
             _playerSpawnPoint.rotation);
         _cameraController.Initialize(_runCameraPoint, _playerView.BattleCameraPoint, _levelMover);
         _level = new(_cameraController, _levelMover, _playerView);
+        ParticleCreatorsInitialize();
         DifficultCalculator difficultCalculator = new(_enemyPrefabs);
         difficultCalculator.Calculate(_playerStats.CurrentLevel);
         LevelStatsCounter levelStatsCounter = new();
-        EnemyCreator enemyCreator = new(_level, _environment, difficultCalculator, levelStatsCounter);
+        EnemyCreator enemyCreator = new(_level, _environment, difficultCalculator, levelStatsCounter, 
+            _particleController);
         PlayerCharacterInitialize();
         LevelEnd levelEnd = new(_playerView.Model, _cameraController, _playerStats, _finishPopup, _failurePopup);
         LevelPartCreator levelPartCreator = new(_level, enemyCreator, _levelPartObjectPool, 
@@ -76,8 +85,15 @@ public class LevelEntryPoint : MonoBehaviour
 
     private void PlayerCharacterInitialize()
     {
-        _playerView.Initialize(_enemyTriggers, _level, _dataForLevel.PlayerDamage, 
-            _dataForLevel.PlayerHealth, _dataForLevel.PlayerFiringRate, _playerHealthSlider);
+        _playerView.Initialize(_enemyTriggers, _level, _dataForLevel.PlayerDamage, _dataForLevel.PlayerHealth, 
+            _dataForLevel.PlayerFiringRate, _playerHealthSlider, _particleController);
         _playerView.RunDirectionPoint = _runDirectionPoint;
+    }
+
+    private void ParticleCreatorsInitialize()
+    {
+        _bloodParticleCreator = new(_bloodParticleObjectPool, _levelMover);
+        _shotParticleCreator = new(_shotParticleObjectPool, _levelMover);
+        _particleController = new(_bloodParticleCreator, _shotParticleCreator);
     }
 }

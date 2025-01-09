@@ -19,8 +19,8 @@ public abstract class BattlerModel : IDamageable
     public float MaxHealth => _maxHealth;
     public float CurrentHealth => _currentHealth;
 
-    public BattlerModel(Level level, Attacker attacker, Transform currentTransform, float damage, 
-        float maxHealth, float firingRate)
+    public BattlerModel(Level level, Attacker attacker, ParticleController particleController, 
+        Transform currentTransform, float damage, float maxHealth, float firingRate)
     {
         Level = level;
         Attacker = attacker;
@@ -28,7 +28,7 @@ public abstract class BattlerModel : IDamageable
         _maxHealth = maxHealth;
         _currentHealth = maxHealth;
 
-        Attacker.Initialize(damage, firingRate);
+        Attacker.Initialize(damage, firingRate, particleController);
     }
 
     public virtual void StartBattle(BattlerModel target)

@@ -6163,6 +6163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1ff4013137fd04293dd5dee1fc9e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodParticlePoint: {fileID: 7948223538037244117}
   _battleCameraPoint: {fileID: 5775330386684873261}
   _battleGunPoint: {fileID: 8339751910792562924}
   _idleGunPoint: {fileID: 1226626734718036714}
@@ -6194,7 +6195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 5032846593550219392}
-  _gunshotEffect: {fileID: 832353962328268562}
   _timeToPerformFirstAttack: 0.5
   _audioSource: {fileID: 6940148789066322709}
   _shotSound: {fileID: 8300000, guid: efe847d1ec24a1a4991eac88b09e555a, type: 3}

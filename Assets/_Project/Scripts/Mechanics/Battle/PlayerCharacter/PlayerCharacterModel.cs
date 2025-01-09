@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class PlayerCharacterModel : BattlerModel
 {
@@ -9,9 +7,9 @@ public class PlayerCharacterModel : BattlerModel
 
     public bool CurrentTargetOnLeftSide => _currentTargetOnLeftSide;
 
-    public PlayerCharacterModel(Level level, Attacker attacker, Transform currentTransform, float damage, 
-        float maxHealth, float firingRate, EnemyTrigger[] enemyTriggers) : 
-        base(level, attacker, currentTransform, damage, maxHealth, firingRate) 
+    public PlayerCharacterModel(Level level, Attacker attacker, ParticleController particleController,
+        Transform currentTransform, float damage, float maxHealth, float firingRate, EnemyTrigger[] enemyTriggers) : 
+        base(level, attacker, particleController, currentTransform, damage, maxHealth, firingRate) 
     {
         _enemyTriggers = enemyTriggers;
     }

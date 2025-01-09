@@ -6,13 +6,13 @@ public class Attacker : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] private Transform _firePoint;
-    [SerializeField] private ParticleSystem _gunshotEffect;
     [SerializeField] private float _timeToPerformFirstAttack = 0.5f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _shotSound;
 
+    private ParticleController _particleController;
     private Coroutine _attackCoroutine;
     private bool _isAttacking;
     private float _damage;
@@ -28,10 +28,11 @@ public class Attacker : MonoBehaviour
     }
     #endregion
 
-    public void Initialize(float damage, float firingRate)
+    public void Initialize(float damage, float firingRate, ParticleController particleController)
     {
         _damage = damage;
         _firingRate = firingRate;
+        _particleController = particleController;
     }
 
     public void Attack(IDamageable target)
@@ -54,7 +55,7 @@ public class Attacker : MonoBehaviour
 
         while (_isAttacking)
         {
-            _gunshotEffect.Play();
+            _particleController.CreateShootParticle(_firePoint.position);
             target.ReceiveDamage(_damage);
             _audioSource.Play();
 

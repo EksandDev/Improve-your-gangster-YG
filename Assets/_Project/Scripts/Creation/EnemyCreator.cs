@@ -5,6 +5,7 @@ public class EnemyCreator : CreatorByCost<EnemyView>
 {
     private Level _level;
     private DifficultCalculator _difficultCalculator;
+    private ParticleController _particleController;
     private LevelStatsCounter _levelStatsCounter;
     private Dictionary<EnemyView, EnemyObjectPool> _enemiesWithObjectPools;
     private List<int> _availableCosts;
@@ -12,10 +13,11 @@ public class EnemyCreator : CreatorByCost<EnemyView>
     public IReadOnlyList<int> AvailableCosts => _availableCosts;
 
     public EnemyCreator(Level level, Transform productParent, DifficultCalculator difficultCalculator, 
-        LevelStatsCounter levelStatsCounter)
+        LevelStatsCounter levelStatsCounter, ParticleController particleController)
     {
         _level = level;
         _difficultCalculator = difficultCalculator;
+        _particleController = particleController;
         _levelStatsCounter = levelStatsCounter;
         _availableCosts = new();
         _enemiesWithObjectPools = new();
@@ -45,7 +47,7 @@ public class EnemyCreator : CreatorByCost<EnemyView>
             var damage = enemy.Data.Damage * _difficultCalculator.EnemyDamageModifier;
             var maxHealth =  enemy.Data.MaxHealth * _difficultCalculator.EnemyHealthModifier;
             var firingRate = enemy.Data.FiringRate * _difficultCalculator.EnemyFiringRateModifier;
-            enemy.Initialize(_level, damage, maxHealth, firingRate, enemy.Data.MoneyForKill);
+            enemy.Initialize(_level, damage, maxHealth, firingRate, enemy.Data.MoneyForKill, _particleController);
             _level.Mover.AddMovingObject(enemy.GetComponent<MovableObject>());
         }
 

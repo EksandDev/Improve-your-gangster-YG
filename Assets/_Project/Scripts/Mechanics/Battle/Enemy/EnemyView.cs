@@ -23,11 +23,12 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     }
     #endregion
 
-    public override void Initialize(Level level, float damage, float maxHealth, float firingRate, int moneyForKill)
+    public override void Initialize(Level level, float damage, float maxHealth, float firingRate, int moneyForKill,
+        ParticleController particleController)
     {
-        base.Initialize(level);
+        base.Initialize(level, particleController);
 
-        Model = new(level, Attacker, transform, damage, maxHealth, firingRate, moneyForKill);
+        Model = new(level, Attacker, particleController, transform, damage, maxHealth, firingRate, moneyForKill);
 
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;
@@ -43,7 +44,6 @@ public class EnemyView : BattlerView<EnemyModel>, IProduct
     {
         base.OnReceiveDamage();
 
-        _bloodSplatEffect.Play();
         _healthSlider.value = Model.CurrentHealth;
     }
 
