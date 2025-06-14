@@ -7,8 +7,9 @@ public class EnemyModel : BattlerModel
 
     public int MoneyForKill { get; }
 
-    public EnemyModel(Level level, Attacker attacker, Transform currentTransform, float damage, float maxHealth, 
-        float firingRate, int moneyForKill) : base(level, attacker, currentTransform, damage, maxHealth, firingRate)
+    public EnemyModel(Level level, Attacker attacker, ParticleController particleController, 
+        Transform currentTransform, float damage, float maxHealth, float firingRate, int moneyForKill) : 
+        base(level, attacker, particleController, currentTransform, damage, maxHealth, firingRate)
     {
         MoneyForKill = moneyForKill;
     }

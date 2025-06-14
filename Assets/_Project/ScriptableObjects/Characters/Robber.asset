@@ -14,30 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1849948860622734697, guid: bc2b9e3fd88eec343bc905b78df149fe, type: 3}
   _cost: 400
-  _UpgradeCostUp: 80
+  _UpgradeCostUp: 65
   _isPurchasedOnStart: 0
   _healthUpgradeMaxLevel: 5
   _damageUpgradeMaxLevel: 5
   _firingRateUpgradeMaxLevel: 5
   _healthUpgradeLevelValues:
   - 35
-  - 0
-  - 0
-  - 0
-  - 0
-  - 1000
+  - 40
+  - 45
+  - 50
+  - 65
+  - 75
   _damageUpgradeLevelValues:
+  - 4
+  - 6
   - 10
-  - 0
-  - 0
-  - 0
-  - 0
-  - 500
+  - 12
+  - 14
+  - 18
   _firingRateUpgradeLevelValues:
-  - 1.8
-  - 1.6
   - 1.4
   - 1.2
   - 1
   - 0.8
+  - 0.6
+  - 0.5
   _id: 1

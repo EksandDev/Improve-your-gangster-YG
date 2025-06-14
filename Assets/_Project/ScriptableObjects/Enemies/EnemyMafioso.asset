@@ -16,6 +16,6 @@ MonoBehaviour:
   _damage: 10
   _firingRate: 0.5
   _costForSpawn: 4
-  _moneyForKill: 70
+  _moneyForKill: 120
   _levelToOpen: 35
   _objectPool: {fileID: 5620822599083523058, guid: 9c347dde21bd9634fbbae0acd6e37c99, type: 3}

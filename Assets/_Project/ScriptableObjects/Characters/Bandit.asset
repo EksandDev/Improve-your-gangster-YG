@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: Bandit
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1090571414178918383, guid: 55b64caa815555a4b8bde5c584f8d892, type: 3}
-  _cost: 354
+  _cost: 1000
   _UpgradeCostUp: 80
   _isPurchasedOnStart: 0
   _healthUpgradeMaxLevel: 5
   _damageUpgradeMaxLevel: 5
   _firingRateUpgradeMaxLevel: 5
   _healthUpgradeLevelValues:
-  - 35
-  - 0
-  - 0
-  - 0
-  - 0
-  - 1000
+  - 50
+  - 68
+  - 76
+  - 85
+  - 92
+  - 100
   _damageUpgradeLevelValues:
-  - 10
-  - 0
-  - 0
-  - 0
-  - 0
-  - 500
+  - 16
+  - 20
+  - 24
+  - 28
+  - 30
+  - 33
   _firingRateUpgradeLevelValues:
   - 1.8
   - 1.6

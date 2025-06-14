@@ -15,7 +15,7 @@ public class ButtonAudio : MonoBehaviour
     }
     #endregion
 
-    public void PlayClickSound()
+    private void PlayClickSound()
     {
         _audioSource.Play();
     }

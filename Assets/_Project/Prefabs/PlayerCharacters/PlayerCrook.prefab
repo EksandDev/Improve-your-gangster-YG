@@ -1513,6 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1ff4013137fd04293dd5dee1fc9e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodParticlePoint: {fileID: 3346306447822782192}
   _battleCameraPoint: {fileID: 7180458481616729440}
   _battleGunPoint: {fileID: 7681100036394937472}
   _idleGunPoint: {fileID: 8479502900963337815}
@@ -1544,7 +1545,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 2623016816810478353}
-  _gunshotEffect: {fileID: 8907042592176410349}
   _timeToPerformFirstAttack: 0.5
   _audioSource: {fileID: 4614237580157184617}
   _shotSound: {fileID: 8300000, guid: efe847d1ec24a1a4991eac88b09e555a, type: 3}
@@ -4500,10 +4500,5 @@ PrefabInstance:
 --- !u!4 &8740868420734232547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4702343032138574, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
-  m_PrefabInstance: {fileID: 8745279392713919661}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8907042592176410349 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198533653044838976, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
   m_PrefabInstance: {fileID: 8745279392713919661}
   m_PrefabAsset: {fileID: 0}

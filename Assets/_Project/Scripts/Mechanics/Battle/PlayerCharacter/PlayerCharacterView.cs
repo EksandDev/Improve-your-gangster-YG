@@ -59,14 +59,14 @@ public class PlayerCharacterView : BattlerView<PlayerCharacterModel>
     #endregion
 
     public override void Initialize(EnemyTrigger[] enemyTriggers, Level level, float damage, float maxHealth, 
-        float firingRate, Slider healthSlider)
+        float firingRate, Slider healthSlider, ParticleController particleController)
     {
-        base.Initialize(enemyTriggers, level, damage, maxHealth, firingRate, healthSlider);
+        base.Initialize(enemyTriggers, level, damage, maxHealth, firingRate, healthSlider, particleController);
 
         _enemyTriggers = enemyTriggers;
         _level = level;
         _healthSlider = healthSlider;
-        Model = new(level, Attacker, transform, damage, maxHealth, firingRate, enemyTriggers);
+        Model = new(level, Attacker, particleController, transform, damage, maxHealth, firingRate, enemyTriggers);
 
         Model.BattleStarted += OnStartBattle;
         Model.BattleStopped += OnStopBattle;

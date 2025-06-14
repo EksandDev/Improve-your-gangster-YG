@@ -1156,6 +1156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1ff4013137fd04293dd5dee1fc9e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodParticlePoint: {fileID: 4964324754260176829}
   _battleCameraPoint: {fileID: 99479995875311229}
   _battleGunPoint: {fileID: 2573400410351295305}
   _idleGunPoint: {fileID: 1413183027224337754}
@@ -1187,7 +1188,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 292768797875853544}
-  _gunshotEffect: {fileID: 5521462475810719483}
   _timeToPerformFirstAttack: 0.5
   _audioSource: {fileID: 7642628690143544406}
   _shotSound: {fileID: 8300000, guid: efe847d1ec24a1a4991eac88b09e555a, type: 3}
@@ -1204,7 +1204,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: efe847d1ec24a1a4991eac88b09e555a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.79
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -9249,11 +9249,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
---- !u!198 &5521462475810719483 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198533653044838976, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
-  m_PrefabInstance: {fileID: 5647929067600217275}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5652524757533388789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4702343032138574, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
