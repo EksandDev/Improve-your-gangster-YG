@@ -13,31 +13,31 @@ MonoBehaviour:
   m_Name: Gangster
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1635369558484745119, guid: 618e1b2e17bc0404ca83174016d552fd, type: 3}
-  _cost: 2444
-  _UpgradeCostUp: 80
+  _cost: 2500
+  _UpgradeCostUp: 100
   _isPurchasedOnStart: 0
   _healthUpgradeMaxLevel: 5
   _damageUpgradeMaxLevel: 5
   _firingRateUpgradeMaxLevel: 5
   _healthUpgradeLevelValues:
-  - 35
-  - 0
-  - 0
-  - 0
-  - 0
-  - 1000
+  - 65
+  - 78
+  - 92
+  - 108
+  - 120
+  - 135
   _damageUpgradeLevelValues:
-  - 10
-  - 0
-  - 0
-  - 0
-  - 0
-  - 500
+  - 22
+  - 30
+  - 36
+  - 43
+  - 50
+  - 55
   _firingRateUpgradeLevelValues:
+  - 2
   - 1.8
   - 1.6
   - 1.4
   - 1.2
   - 1
-  - 0.8
   _id: 3

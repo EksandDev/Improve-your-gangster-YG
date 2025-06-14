@@ -13,31 +13,31 @@ MonoBehaviour:
   m_Name: Mafioso
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4476579605241059964, guid: 48119a3f06349fe458e7e75c8f5e0d73, type: 3}
-  _cost: 22
-  _UpgradeCostUp: 80
+  _cost: 5000
+  _UpgradeCostUp: 150
   _isPurchasedOnStart: 0
   _healthUpgradeMaxLevel: 5
   _damageUpgradeMaxLevel: 5
   _firingRateUpgradeMaxLevel: 5
   _healthUpgradeLevelValues:
-  - 35
-  - 0
-  - 0
-  - 0
-  - 0
-  - 1000
+  - 100
+  - 120
+  - 150
+  - 180
+  - 200
+  - 250
   _damageUpgradeLevelValues:
-  - 10
-  - 0
-  - 0
-  - 0
-  - 0
-  - 500
+  - 30
+  - 38
+  - 50
+  - 60
+  - 72
+  - 90
   _firingRateUpgradeLevelValues:
-  - 1.8
-  - 1.6
-  - 1.4
   - 1.2
   - 1
   - 0.8
+  - 0.6
+  - 0.5
+  - 0.4
   _id: 4

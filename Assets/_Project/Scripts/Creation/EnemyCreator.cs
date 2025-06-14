@@ -34,7 +34,7 @@ public class EnemyCreator : CreatorByCost<EnemyView>
 
     public override EnemyView Create(Vector3 position, int cost)
     {
-        EnemyView enemy = GetEnemyByCost(position, cost);
+        var enemy = GetEnemyByCost(position, cost);
 
         if (enemy == null)
         {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -14,7 +15,8 @@ public class LevelEntryPoint : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Popup _failurePopup;
     [SerializeField] private Popup _finishPopup;
-    [SerializeField] private Slider _playerHealthSlider; 
+    [SerializeField] private Slider _playerHealthSlider;
+    [FormerlySerializedAs("_gameProcessSlider")] [SerializeField] private SmoothGameProcessSlider gameProcessGameProcessSlider;
     [SerializeField] private LevelStatsCounterUI[] _levelStatsCountersUI;
     [SerializeField] private SceneLoaderButton[] _sceneLoaderButtons;
 
@@ -66,7 +68,8 @@ public class LevelEntryPoint : MonoBehaviour
         ParticleCreatorsInitialize();
         DifficultCalculator difficultCalculator = new(_enemyPrefabs);
         difficultCalculator.Calculate(_playerStats.CurrentLevel);
-        LevelStatsCounter levelStatsCounter = new();
+        gameProcessGameProcessSlider.Initialize();
+        LevelStatsCounter levelStatsCounter = new(gameProcessGameProcessSlider);
         EnemyCreator enemyCreator = new(_level, _environment, difficultCalculator, levelStatsCounter, 
             _particleController);
         PlayerCharacterInitialize();

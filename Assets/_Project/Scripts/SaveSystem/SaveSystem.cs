@@ -69,7 +69,7 @@ public class SaveSystem
         {
 #if UNITY_WEBGL
             if (YandexGame.SDKEnabled)
-                //return YandexGame.savesData.GameSaves;
+                return YandexGame.savesData.GameSaves;
           
             return DeserializeSaves(PlayerPrefs.GetString(_gameSavesKey));
 #endif
